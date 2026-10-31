@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/publishing")({
+  head: () => ({ meta: [{"title": "Publishing \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage publishing for your ROUT application."}, {"property": "og:title", "content": "Publishing \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage publishing for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: PublishingPage,
 });
 

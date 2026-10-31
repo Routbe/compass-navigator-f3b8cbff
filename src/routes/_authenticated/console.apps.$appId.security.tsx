@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/security")({
+  head: () => ({ meta: [{"title": "Security \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage security for your ROUT application."}, {"property": "og:title", "content": "Security \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage security for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: SecurityPage,
 });
 

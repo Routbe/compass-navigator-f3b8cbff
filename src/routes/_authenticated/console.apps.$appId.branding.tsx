@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/branding")({
+  head: () => ({ meta: [{"title": "Branding \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage branding for your ROUT application."}, {"property": "og:title", "content": "Branding \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage branding for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: BrandingPage,
 });
 

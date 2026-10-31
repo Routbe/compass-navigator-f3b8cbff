@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { redirectError } from "@/lib/oauth/redirect-rules";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/redirects")({
+  head: () => ({ meta: [{"title": "Redirects \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage redirects for your ROUT application."}, {"property": "og:title", "content": "Redirects \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage redirects for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: RedirectsPage,
 });
 

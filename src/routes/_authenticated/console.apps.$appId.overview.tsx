@@ -7,6 +7,7 @@ import { useAppPage } from "@/components/console/useAppPage";
 import { getOAuthClientInsights } from "@/lib/oauth/console.functions";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/overview")({
+  head: () => ({ meta: [{"title": "Overview \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage overview for your ROUT application."}, {"property": "og:title", "content": "Overview \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage overview for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: OverviewPage,
 });
 

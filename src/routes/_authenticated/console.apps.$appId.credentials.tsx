@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/credentials")({
+  head: () => ({ meta: [{"title": "Credentials \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage credentials for your ROUT application."}, {"property": "og:title", "content": "Credentials \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage credentials for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: CredentialsPage,
 });
 

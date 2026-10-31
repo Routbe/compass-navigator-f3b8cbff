@@ -7,6 +7,7 @@ import { HandleSyncCard } from "@/components/console/HandleSyncCard";
 import { Switch } from "@/components/ui/switch";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/advanced")({
+  head: () => ({ meta: [{"title": "Advanced \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage advanced for your ROUT application."}, {"property": "og:title", "content": "Advanced \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage advanced for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: AdvancedPage,
 });
 

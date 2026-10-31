@@ -5,6 +5,7 @@ import { HandleSyncCard } from "@/components/console/HandleSyncCard";
 import { Switch } from "@/components/ui/switch";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/scopes")({
+  head: () => ({ meta: [{"title": "Scopes \u2014 ROUT Developer Console"}, {"name": "description", "content": "Manage scopes for your ROUT application."}, {"property": "og:title", "content": "Scopes \u2014 ROUT Developer Console"}, {"property": "og:description", "content": "Manage scopes for your ROUT application."}, {"property": "og:type", "content": "website"}, {"name": "twitter:card", "content": "summary_large_image"}] }),
   component: ScopesPage,
 });
 
