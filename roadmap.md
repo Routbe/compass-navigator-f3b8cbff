@@ -23,4 +23,5 @@
 - [ ] Apply 0150/0151 and register verified existing 0149: awaits exact live SQL confirmation; no historical migration rewritten.
 - [x] Diagnose avatar 503 as missing configured storage before upload; add sanitized PUT/network/provider and read-failure logging.
 - [ ] Live Scaleway cache check: credentials/bucket remain unavailable.
-- [ ] Final full tests and TypeScript check after repairs; local rollback/context evidence already passed.
+- [x] Full suite: 217 files / 1,240 tests passed; manual TypeScript check exit 0 after host timeout. PGlite proves late-error rollback and context cleanup, not live gateway/auth success.
+- [ ] Authenticated end-to-end verification: blocked by owner connection and unsupported Better Auth adapter; JWKS is temporarily unavailable rather than using unsafe owner access.
