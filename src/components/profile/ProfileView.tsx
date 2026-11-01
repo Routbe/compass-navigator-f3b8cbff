@@ -68,6 +68,7 @@ import { ProfileTimeline } from "@/components/profile/ProfileTimeline";
 import { BadgeShowcase } from "@/components/profile/BadgeShowcase";
 import { ProfileBadge } from "@/components/profile/ProfileBadge";
 import { ProfilePassport } from "@/components/profile/CustomBadgeRow";
+import { ConnectedApps } from "@/components/profile/ConnectedApps";
 import type { BadgeType } from "@/lib/profile-display";
 import { MemberSinceBadge, PioneerBadge } from "@/components/profile/TrustBadges";
 import {
@@ -451,6 +452,7 @@ export function ProfileView({
             />
           )}
           <ProfilePassport handle={profile.username} theme={t} compact />
+          {profile.username && <ConnectedApps handle={profile.username} compact />}
         </h1>
         {profile.username && <ProfilePageTabs handle={profile.username} theme={t} />}
         {profile.username && <SnapchatProfile handle={profile.username} theme={t} buttonStyle={styleFor("live")} ownerName={profile.display_name || profile.username} />}
@@ -462,6 +464,7 @@ export function ProfileView({
         {profile.username && usesSectionFallback(profile.blocks, "widget:youtube") && <ProfileYouTubeCard handle={profile.username} theme={t} cardStyle={styleFor("widget:youtube")} />}
         {profile.username && <TipJarButton handle={profile.username} theme={t} />}
         <ProfilePassport handle={profile.username} theme={t} />
+        {profile.username && <ConnectedApps handle={profile.username} />}
         {profile.username && prefs.guestbookEnabled && usesSectionFallback(profile.blocks, "widget:guestbook") && <ProfileGuestbook handle={profile.username} theme={t} />}
         {profile.username && prefs.questionsEnabled && <ProfileQuestions handle={profile.username} theme={t} />}
         {profile.username && !profile.blocks.some(b => b.kind === "event_list") && <ProfileEventList handle={profile.username} space={free ? "alias" : "root"} style={styleFor("event_list")} />}

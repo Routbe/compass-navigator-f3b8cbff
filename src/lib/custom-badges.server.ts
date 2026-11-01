@@ -177,7 +177,9 @@ export async function publicBadgesForHandle(rawHandle: string) {
         from public.profiles p
         join public.user_custom_badges u on u.user_id = p.id
         join public.custom_badges b on b.id = u.badge_id
-       where p.username = ${handle}
+        where p.username = ${handle}
+         and u.rejected_at is null and u.revoked_at is null
+         and (u.show_on_name or u.show_in_badges)
          and coalesce(p.is_banned, false) = false
           and coalesce((p.display_prefs ->> 'publicProfile')::boolean, true)
        order by u.sort_order, u.granted_at
