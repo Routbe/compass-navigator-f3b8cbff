@@ -11,7 +11,10 @@ const handles = new Map<string, { image: string; expires: number }>();
 /** Cache account lookup as well as media; never expose provider URLs to browsers. */
 export async function cachedMastodonAvatar(handle: string): Promise<Response> {
   const lookup = mastodonHandleUrl(handle);
-  if (!storageConfigured("internal")) return new Response("Image cache unavailable", { status: 503 });
+  if (!storageConfigured("internal")) {
+    console.error("[avatar-cache] storage_not_configured");
+    return new Response("Image cache unavailable", { status: 503 });
+  }
   const key = lookup.href;
   const existing = handles.get(key);
   if (existing && existing.expires > Date.now()) return cachedRemoteImage(existing.image);
@@ -90,7 +93,10 @@ async function readOrFetchImage(raw: string): Promise<Response> {
     return imageResponse(body, cached.headers.get("content-type") ?? "image/png");
   }
   await cached.body?.cancel();
-  if (!cached.ok && cached.status !== 404) return new Response("Image cache unavailable", { status: 503 });
+  if (!cached.ok && cached.status !== 404) {
+    console.error("[avatar-cache] storage_read_rejected", { status: cached.status });
+    return new Response("Image cache unavailable", { status: 503 });
+  }
   const signal = AbortSignal.timeout(IMAGE_TIMEOUT_MS);
   const target = await validateOutboundUrl(raw, signal);
   const response = await fetch(target, { redirect: "error", signal, headers: { accept: "image/jpeg,image/png,image/webp", "user-agent": "ROUT image cache" } });

@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireAuth } from "@/lib/auth/middleware";
 import { WORKSPACE_ROLES, checkMemberChange, canManageTeam, canAssignRole, type WorkspaceRole } from "./workspace-rules";
+import { unavailableWorkspaceContext } from "./workspace-availability";
 
 const roleSchema = z.enum(WORKSPACE_ROLES);
 const uuid = z.string().uuid();
@@ -10,16 +11,22 @@ export type WorkspaceSummary = { id: string; name: string; slug: string; avatarU
 
 /** Personal context + every workspace the caller belongs to, and which one is active. */
 export const getWorkspaceContext = createServerFn({ method: "GET" })
-  .middleware([requireAuth])
-  .handler(async ({ context }) => {
-    const { sql } = await import("@/lib/neon");
+  .handler(async () => {
+    try {
+    const { currentUser } = await import("./auth/session.server");
+    const user = await currentUser();
+    if (!user) return unavailableWorkspaceContext();
+    const { sql, withDbContext } = await import("@/lib/neon");
+    return await withDbContext({ userId: user.id, workspaceId: null }, async () => {
+    const { sunsetStatus } = await import("./workspace-conversion.server");
+    if (await sunsetStatus(user.id)) return unavailableWorkspaceContext();
     const { resolveActiveWorkspace } = await import("./workspaces.server");
     // Pending invites are accepted only for a verified email address, matched server-side.
-    const email = context.claims.email_verified ? String(context.claims.email ?? "").toLowerCase() : "";
+    const email = user.emailConfirmedAt ? user.email.toLowerCase() : "";
     if (email) {
       await sql.transaction([
         sql`insert into public.workspace_members (workspace_id, user_id, role)
-            select workspace_id, ${context.userId}, role from public.workspace_invites
+            select workspace_id, ${user.id}, role from public.workspace_invites
             where status = 'pending' and lower(email) = ${email}
             on conflict do nothing`,
         sql`update public.workspace_invites set status = 'accepted' where status = 'pending' and lower(email) = ${email}`,
@@ -28,14 +35,20 @@ export const getWorkspaceContext = createServerFn({ method: "GET" })
     const rows = (await sql`
       select w.id, w.name, w.slug, w.avatar_url, w.plan, m.role::text as role
       from public.workspace_members m join public.workspaces w on w.id = m.workspace_id
-      where m.user_id = ${context.userId} order by w.name limit 100
+      where m.user_id = ${user.id} order by w.name limit 100
     `) as { id: string; name: string; slug: string; avatar_url: string | null; plan: string; role: WorkspaceRole }[];
-    const active = await resolveActiveWorkspace(context.userId);
+    const active = await resolveActiveWorkspace(user.id);
     return {
+      available: true as const,
       workspaces: rows.map((r): WorkspaceSummary => ({ id: r.id, name: r.name, slug: r.slug, avatarUrl: r.avatar_url, plan: r.plan, role: r.role })),
       activeWorkspaceId: active.workspaceId,
       activeRole: active.role,
     };
+    });
+    } catch {
+      console.error("[workspace-context] temporarily_unavailable");
+      return unavailableWorkspaceContext();
+    }
   });
 
 export const setActiveWorkspace = createServerFn({ method: "POST" })

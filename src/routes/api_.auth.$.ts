@@ -209,7 +209,9 @@ export async function handleAuthRequest({ request }: { request: Request }) {
       stack: err instanceof Error ? err.stack : undefined,
       ...traceContext(request),
     });
-    const code = /PROVIDER_NOT_FOUND|provider[^\n]*(not found|not configured|not enabled|unknown provider)/i.test(raw)
+    const code = /interactive_transactions_unsupported|runtime_role_unsafe/.test(raw)
+      ? "database_safety_blocked"
+      : /PROVIDER_NOT_FOUND|provider[^\n]*(not found|not configured|not enabled|unknown provider)/i.test(raw)
       ? "provider_not_configured"
       : /SECRET/.test(raw)
         ? "missing_secret"
@@ -224,6 +226,7 @@ export async function handleAuthRequest({ request }: { request: Request }) {
       console.warn("[auth] provider not configured (thrown by handler):", raw);
     }
     const message = {
+      database_safety_blocked: "Inloggen is tijdelijk niet beschikbaar: de veilige databaseverbinding is nog niet gereed.",
       missing_secret: "Inloggen is niet ingesteld: BETTER_AUTH_SECRET ontbreekt op de server.",
       missing_database: "Inloggen is niet ingesteld: DATABASE_URL ontbreekt op de server.",
       db_connect: "De database is niet bereikbaar vanaf de server. Probeer later opnieuw.",
@@ -231,7 +234,7 @@ export async function handleAuthRequest({ request }: { request: Request }) {
       auth_error: "Inloggen faalt aan serverzijde. Probeer later opnieuw.",
       provider_not_configured: PROVIDER_NOT_CONFIGURED_MESSAGE,
     }[code];
-    const status = code === "provider_not_configured" ? 400 : 500;
+    const status = code === "provider_not_configured" ? 400 : code === "database_safety_blocked" ? 503 : 500;
     return Response.json({ code, message }, { status, headers: { "cache-control": "no-store" } });
   }
 }

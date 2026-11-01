@@ -1,4 +1,5 @@
 import { AwsClient } from "aws4fetch";
+import { storageFailureCode, storageNetworkCode } from "./storage-errors";
 
 /**
  * Scaleway Object Storage (S3-compatible, fr-par).
@@ -76,14 +77,20 @@ export async function putObject(
   };
   if (opts.publicRead) headers["x-amz-acl"] = "public-read";
   for (const [k, v] of Object.entries(opts.metadata ?? {})) headers[`x-amz-meta-${k}`] = v;
-  const res = await client.fetch(`${endpoint}/${bucket}/${encodeKey(key)}`, {
+  let res: Response;
+  try {
+  res = await client.fetch(`${endpoint}/${bucket}/${encodeKey(key)}`, {
     method: "PUT",
     headers,
     body: body as BodyInit,
   });
+  } catch (error) {
+    console.error("[storage] PUT failed", { kind, code: storageNetworkCode(error) });
+    throw new Error("Upload naar opslag mislukt: verbinding niet beschikbaar.");
+  }
   if (!res.ok) {
     const text = await res.text();
-    console.error(`[storage] PUT ${bucket}/${key} failed [${res.status}]: ${text.slice(0, 300)}`);
+    console.error("[storage] PUT failed", { kind, status: res.status, code: storageFailureCode(text) });
     throw new Error(`Upload naar opslag mislukt (${res.status}).`);
   }
 }

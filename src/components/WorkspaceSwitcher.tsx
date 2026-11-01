@@ -33,12 +33,14 @@ export function useScope() {
   const setActive = useServerFn(setActiveWorkspace);
   const [busy, setBusy] = useState(false);
 
-  const active = data?.workspaces.find((w) => w.id === data.activeWorkspaceId) ?? null;
+  const available = data?.available === true;
+  const active = data?.workspaces?.find((w) => w.id === data.activeWorkspaceId) ?? null;
   const scope: Scope = active
     ? { type: "workspace", workspaceId: active.id, role: active.role as "owner" | "admin" | "member" }
     : { type: "personal", userId: null };
 
   const switchTo = async (workspaceId: string | null) => {
+    if (!available) return;
     if ((active?.id ?? null) === workspaceId) return;
     setBusy(true);
     try {
@@ -59,15 +61,16 @@ export function useScope() {
     void navigate({ to: "/studio/workspaces/new" });
   };
 
-  return { scope, active, workspaces: data?.workspaces ?? [], switchTo, newWorkspace, busy };
+  return { scope, active, workspaces: data?.workspaces ?? [], switchTo, newWorkspace, busy, available };
 }
 
 /** Vercel-style switcher: Personal + every workspace the user belongs to. */
 export function WorkspaceSwitcher({ alwaysShow = false }: { alwaysShow?: boolean }) {
   const { t } = useI18n();
-  const { active, workspaces, switchTo, newWorkspace, busy } = useScope();
+  const { active, workspaces, switchTo, newWorkspace, busy, available } = useScope();
   const navigate = useNavigate();
   const data = { workspaces };
+  if (!available) return alwaysShow ? <span role="status" className="text-sm text-muted-foreground">Workspaces tijdelijk niet beschikbaar.</span> : null;
 
   if (!alwaysShow && !data?.workspaces.length) return null;
 

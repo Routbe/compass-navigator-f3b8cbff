@@ -52,7 +52,8 @@ export async function currentUser(): Promise<SessionUser | null> {
     const userId = await readAppSessionUserId(cookie);
     if (!userId) return null;
     const { findUserById } = await import("@/lib/auth/users.server");
-    return findUserById(userId);
+    const { withDbContext } = await import("@/lib/neon");
+    return withDbContext({ userId, workspaceId: null }, () => findUserById(userId));
   } catch {
     return null;
   }
