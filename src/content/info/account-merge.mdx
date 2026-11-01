@@ -8,16 +8,16 @@ ai_ready: true
 
 # Accounts samenvoegen
 
-Twee ROUT-accounts samenbrengen met controle over gegevens en identiteit.
+## Eerst beide accounts controleren
 
-<Callout type="info" title="Artikel in voorbereiding">
-Deze pagina is een inhoudelijk sjabloon. Details worden pas gepubliceerd nadat de implementatie en relevante voorwaarden zijn gecontroleerd.
-</Callout>
+Een ROUT-merge gebruikt een kortlevend ticket van het hoofdaccount, een preview door het tweede account, een e-mailcode en expliciete keuzes voor naam en ontwerp. De handlers vereisen verse passkeyverificatie.
 
-## Over dit onderwerp
+<StepByStep><Step title="Begin bij het account dat blijft">Maak een PIN/QR-ticket. Een ticket vervangt geen verificatie.</Step><Step title="Controleer het tweede account">Bekijk de preview en bevestig de e-mailcode.</Step><Step title="Kies bewust">Kies de naam en het ontwerp. De database voert de afhankelijke mutaties atomair uit.</Step></StepByStep>
 
-De volledige handleiding volgt. Dit artikel bevestigt geen beschikbaarheid, certificering of garanties.
+## Niet alle accounts kunnen mergen
 
-## Verder lezen
+Identiteits-, financiële, encrypted-ledger- en disclosuregegevens kunnen de merge blokkeren. Duplicaten volgen expliciete regels; niet alles wordt blind verplaatst. Dit voegt geen accounts samen in externe apps.
 
-Bekijk de andere artikelen in deze pijler.
+## Huidige beschikbaarheid
+
+De SQL-capability is voorbereid en offline getest, maar de live migraties en rout_app-verbinding blijven geblokkeerd. De preview bewijst nog geen voltooide aanmeld- of mergeflow.
