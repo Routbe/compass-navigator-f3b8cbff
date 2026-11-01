@@ -13,3 +13,11 @@
 - [ ] Verify real passkey/PRF ledger flow: requires a real authenticator and disposable signed-in account.
 - [x] Resolve all current jsx-a11y findings; 1,234 tests pass; QR keyboard interaction verified.
 - [ ] Other pre-existing lint findings (10,226) remain outside the accessibility repair scope.
+
+## Database foundation repair
+- [ ] Replace fake Better Auth transactions with a supported, truly atomic execution path; native callback transactions cannot run through the mandatory stateless Neon gateway.
+- [ ] Enforce least-privilege runtime identity and transaction-local authenticated context across query/RPC paths.
+- [ ] Add forward migration 0150 with a protected audit head and truncation verification/tests after confirming the actual user/log schema.
+- [ ] Reconcile missing 0149 registration and create immutable 0151 grant/function repair after PGlite replay and explicit statement confirmation.
+- [ ] Diagnose Scaleway avatar failures with safe storage error logging; live storage verification requires configured credentials.
+- [ ] Run full tests and rollback/context checks; TypeScript validation is managed by the host rather than a manual typecheck.
