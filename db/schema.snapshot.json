@@ -13,6 +13,15 @@
   "enums": [
     {
       "schema": "public",
+      "name": "app_credential_type",
+      "labels": [
+        "badge",
+        "certificate",
+        "diploma"
+      ]
+    },
+    {
+      "schema": "public",
       "name": "app_role",
       "labels": [
         "admin",
@@ -2762,6 +2771,174 @@
           "INSERT",
           "SELECT",
           "UPDATE"
+        ]
+      }
+    },
+    {
+      "schema": "public",
+      "name": "app_issued_credentials",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "notNull": true,
+          "default": "gen_random_uuid()",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "client_id",
+          "type": "text",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "type",
+          "type": "app_credential_type",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "notNull": false,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "image_url",
+          "type": "text",
+          "notNull": false,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "issued_at",
+          "type": "timestamp with time zone",
+          "notNull": true,
+          "default": "now()",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "revoked_at",
+          "type": "timestamp with time zone",
+          "notNull": false,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "accepted_at",
+          "type": "timestamp with time zone",
+          "notNull": false,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "show_on_name",
+          "type": "boolean",
+          "notNull": true,
+          "default": "false",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "request_key",
+          "type": "text",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "app_issued_credentials_client_id_fkey",
+          "kind": "f",
+          "def": "FOREIGN KEY (client_id) REFERENCES oauth_clients(client_id) ON DELETE CASCADE"
+        },
+        {
+          "name": "app_issued_credentials_client_id_request_key_key",
+          "kind": "u",
+          "def": "UNIQUE (client_id, request_key)"
+        },
+        {
+          "name": "app_issued_credentials_pkey",
+          "kind": "p",
+          "def": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "app_issued_credentials_user_id_fkey",
+          "kind": "f",
+          "def": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX credential_recipient_idx ON public.app_issued_credentials USING btree (user_id, issued_at DESC, id)"
+      ],
+      "triggers": [],
+      "rls": true,
+      "forceRls": false,
+      "policies": [
+        {
+          "name": "credential_recipient_accept",
+          "permissive": true,
+          "roles": [
+            "rout_app"
+          ],
+          "cmd": "UPDATE",
+          "using": "(user_id = rout_current_user_id())",
+          "check": "(user_id = rout_current_user_id())"
+        },
+        {
+          "name": "credential_recipient_delete",
+          "permissive": true,
+          "roles": [
+            "rout_app"
+          ],
+          "cmd": "DELETE",
+          "using": "(user_id = rout_current_user_id())",
+          "check": null
+        },
+        {
+          "name": "credential_recipient_read",
+          "permissive": true,
+          "roles": [
+            "rout_app"
+          ],
+          "cmd": "SELECT",
+          "using": "(user_id = rout_current_user_id())",
+          "check": null
+        }
+      ],
+      "grants": {
+        "rout_app": [
+          "DELETE",
+          "SELECT"
         ]
       }
     },
@@ -16611,6 +16788,77 @@
     },
     {
       "schema": "public",
+      "name": "user_connected_apps_visibility",
+      "columns": [
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "client_id",
+          "type": "text",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "is_public",
+          "type": "boolean",
+          "notNull": true,
+          "default": "false",
+          "identity": null,
+          "generated": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "user_connected_apps_visibility_client_id_fkey",
+          "kind": "f",
+          "def": "FOREIGN KEY (client_id) REFERENCES oauth_clients(client_id) ON DELETE CASCADE"
+        },
+        {
+          "name": "user_connected_apps_visibility_pkey",
+          "kind": "p",
+          "def": "PRIMARY KEY (user_id, client_id)"
+        },
+        {
+          "name": "user_connected_apps_visibility_user_id_fkey",
+          "kind": "f",
+          "def": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+        }
+      ],
+      "indexes": [],
+      "triggers": [],
+      "rls": true,
+      "forceRls": false,
+      "policies": [
+        {
+          "name": "credential_visibility_owner",
+          "permissive": true,
+          "roles": [
+            "rout_app"
+          ],
+          "cmd": "ALL",
+          "using": "(user_id = rout_current_user_id())",
+          "check": "(user_id = rout_current_user_id())"
+        }
+      ],
+      "grants": {
+        "rout_app": [
+          "DELETE",
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ]
+      }
+    },
+    {
+      "schema": "public",
       "name": "user_custom_badges",
       "columns": [
         {
@@ -20856,6 +21104,12 @@
       "name": "profiles_handle_namespace_guard",
       "args": "",
       "def": "CREATE OR REPLACE FUNCTION public.profiles_handle_namespace_guard()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin\n  if new.username is distinct from coalesce(old.username, null) then\n    perform public.assert_handle_namespace_free(new.username, new.id);\n  end if;\n  if new.subdomain_alias is distinct from coalesce(old.subdomain_alias, null) then\n    perform public.assert_handle_namespace_free(new.subdomain_alias, new.id);\n  end if;\n  return new;\nend;\n$function$"
+    },
+    {
+      "schema": "public",
+      "name": "public_app_credentials",
+      "args": "p_handle text",
+      "def": "CREATE OR REPLACE FUNCTION public.public_app_credentials(p_handle text)\n RETURNS TABLE(id uuid, client_id text, type app_credential_type, title text, description text, image_url text, issued_at timestamp with time zone, show_on_name boolean, app_name text, issuer_handle text)\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\n select k.id,k.client_id,k.type,k.title,k.description,k.image_url,k.issued_at,k.show_on_name,c.name,issuer.username\n from public.app_issued_credentials k\n join public.users u on u.id=k.user_id\n join public.profiles p on p.id=k.user_id\n join public.user_connected_apps_visibility v on v.user_id=k.user_id and v.client_id=k.client_id and v.is_public\n join public.oauth_clients c on c.client_id=k.client_id and c.status='active'\n join public.oauth_consents g on g.user_id=k.user_id and g.client_id=k.client_id and g.revoked_at is null\n left join public.profiles issuer on issuer.id=c.owner_user_id\n where p.username=p_handle and not p.is_banned and not p.is_suspended and not u.is_disabled\n and coalesce((p.display_prefs->>'publicProfile')::boolean,true)\n and k.accepted_at is not null and k.revoked_at is null\n order by k.issued_at desc,k.id desc limit 100\n$function$"
     },
     {
       "schema": "public",

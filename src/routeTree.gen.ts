@@ -20,6 +20,7 @@ import { Route as CardRouteImport } from './routes/card'
 import { Route as ClaimRouteImport } from './routes/claim'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DataDeletionRouteImport } from './routes/data-deletion'
+import { Route as DevRouteImport } from './routes/dev'
 import { Route as DevelopersRouteImport } from './routes/developers'
 import { Route as EmailTemplatesRouteImport } from './routes/email-templates'
 import { Route as ExploreRouteImport } from './routes/explore'
@@ -27,12 +28,14 @@ import { Route as GiftRouteImport } from './routes/gift'
 import { Route as GoRouteImport } from './routes/go'
 import { Route as HubRouteImport } from './routes/hub'
 import { Route as IbanQrRouteImport } from './routes/iban-qr'
+import { Route as InfoRouteImport } from './routes/info'
 import { Route as LeavingRouteImport } from './routes/leaving'
 import { Route as ManifestoRouteImport } from './routes/manifesto'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as QrRouteImport } from './routes/qr'
+import { Route as SafetyRouteImport } from './routes/safety'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as SelfHostingRouteImport } from './routes/self-hosting'
 import { Route as SignatureRouteImport } from './routes/signature'
@@ -59,6 +62,15 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedDomainsRouteImport } from './routes/_authenticated/domains'
 import { Route as AuthenticatedMyDataRouteImport } from './routes/_authenticated/my-data'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AboutIndexRouteImport } from './routes/about.index'
+import { Route as AboutBadgesRouteImport } from './routes/about.badges'
+import { Route as AboutBrandRouteImport } from './routes/about.brand'
+import { Route as AboutCustomBadgesRouteImport } from './routes/about.custom-badges'
+import { Route as AboutEcosystemRouteImport } from './routes/about.ecosystem'
+import { Route as AboutManifestoRouteImport } from './routes/about.manifesto'
+import { Route as AboutOpenSourceRouteImport } from './routes/about.open-source'
+import { Route as AboutSovereigntyRouteImport } from './routes/about.sovereignty'
+import { Route as AboutUsernamesRouteImport } from './routes/about.usernames'
 import { Route as AccountAccountViewRouteImport } from './routes/account.$accountView'
 import { Route as ApiClaimRootRouteImport } from './routes/api/claim-root'
 import { Route as ApiPaymentStatusRouteImport } from './routes/api_.payment-status'
@@ -72,18 +84,51 @@ import { Route as BookEventTypeIdRouteImport } from './routes/book.$eventTypeId'
 import { Route as BookingBookingIdRouteImport } from './routes/booking.$bookingId'
 import { Route as BrandSplatRouteImport } from './routes/brand.$'
 import { Route as ClaimTokenRouteImport } from './routes/claim_.$token'
+import { Route as DevIndexRouteImport } from './routes/dev.index'
+import { Route as DevAiMcpRouteImport } from './routes/dev.ai-mcp'
+import { Route as DevCredentialsRouteImport } from './routes/dev.credentials'
+import { Route as DevCredentialsApiRouteImport } from './routes/dev.credentials-api'
+import { Route as DevDesignSystemRouteImport } from './routes/dev.design-system'
 import { Route as DevEmailsRouteImport } from './routes/dev.emails'
+import { Route as DevGetStartedRouteImport } from './routes/dev.get-started'
+import { Route as DevIdentityRouteImport } from './routes/dev.identity'
+import { Route as DevIdentityOidcRouteImport } from './routes/dev.identity-oidc'
+import { Route as DevWebhooksRouteImport } from './routes/dev.webhooks'
+import { Route as DeveloperAiMcpRouteImport } from './routes/developer.ai-mcp'
+import { Route as DeveloperCredentialsRouteImport } from './routes/developer.credentials'
+import { Route as DeveloperIdentityOauthRouteImport } from './routes/developer.identity-oauth'
+import { Route as DeveloperWebhooksRouteImport } from './routes/developer.webhooks'
 import { Route as ESlugRouteImport } from './routes/e.$slug'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as FIdRouteImport } from './routes/f.$id'
 import { Route as FeedbackSlugRouteImport } from './routes/feedback.$slug'
 import { Route as GiftCodeRouteImport } from './routes/gift_.$code'
 import { Route as IdentityRevokeRouteImport } from './routes/identity.revoke'
+import { Route as InfoIndexRouteImport } from './routes/info.index'
+import { Route as InfoAccountMergeRouteImport } from './routes/info.account-merge'
+import { Route as InfoAccountSecurityRouteImport } from './routes/info.account-security'
+import { Route as InfoBadgesRouteImport } from './routes/info.badges'
+import { Route as InfoCredentialsRouteImport } from './routes/info.credentials'
+import { Route as InfoCustomBadgesRouteImport } from './routes/info.custom-badges'
+import { Route as InfoProfilesRouteImport } from './routes/info.profiles'
+import { Route as InfoQrStudioRouteImport } from './routes/info.qr-studio'
+import { Route as InfoUsernamesRouteImport } from './routes/info.usernames'
+import { Route as InfoWalletRouteImport } from './routes/info.wallet'
 import { Route as OauthAuthorizeRouteImport } from './routes/oauth.authorize'
 import { Route as OauthEndSessionRouteImport } from './routes/oauth.end-session'
 import { Route as RUsernameRouteImport } from './routes/r.$username'
 import { Route as ReviewTokenRouteImport } from './routes/review.$token'
 import { Route as SSlugRouteImport } from './routes/s.$slug'
+import { Route as SafetyIndexRouteImport } from './routes/safety.index'
+import { Route as SafetyArchitectureRouteImport } from './routes/safety.architecture'
+import { Route as SafetyComplianceRouteImport } from './routes/safety.compliance'
+import { Route as SafetyCryptographyRouteImport } from './routes/safety.cryptography'
+import { Route as SafetyDataDeletionRouteImport } from './routes/safety.data-deletion'
+import { Route as SafetyPrivacyRouteImport } from './routes/safety.privacy'
+import { Route as SafetySecurityAdvisoriesRouteImport } from './routes/safety.security-advisories'
+import { Route as SafetyTermsRouteImport } from './routes/safety.terms'
+import { Route as SafetyTransparencyRouteImport } from './routes/safety.transparency'
+import { Route as SafetyZeroKnowledgeRouteImport } from './routes/safety.zero-knowledge'
 import { Route as StatsTokenRouteImport } from './routes/stats.$token'
 import { Route as UUsernameRouteImport } from './routes/u.$username'
 import { Route as WSlugRouteImport } from './routes/w.$slug'
@@ -265,6 +310,11 @@ const DataDeletionRoute = DataDeletionRouteImport.update({
   path: '/data-deletion',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DevRoute = DevRouteImport.update({
+  id: '/dev',
+  path: '/dev',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DevelopersRoute = DevelopersRouteImport.update({
   id: '/developers',
   path: '/developers',
@@ -300,6 +350,11 @@ const IbanQrRoute = IbanQrRouteImport.update({
   path: '/iban-qr',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InfoRoute = InfoRouteImport.update({
+  id: '/info',
+  path: '/info',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LeavingRoute = LeavingRouteImport.update({
   id: '/leaving',
   path: '/leaving',
@@ -328,6 +383,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const QrRoute = QrRouteImport.update({
   id: '/qr',
   path: '/qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SecurityRoute = SecurityRouteImport.update({
@@ -461,6 +521,51 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AboutIndexRoute = AboutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutBadgesRoute = AboutBadgesRouteImport.update({
+  id: '/badges',
+  path: '/badges',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutBrandRoute = AboutBrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutCustomBadgesRoute = AboutCustomBadgesRouteImport.update({
+  id: '/custom-badges',
+  path: '/custom-badges',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutEcosystemRoute = AboutEcosystemRouteImport.update({
+  id: '/ecosystem',
+  path: '/ecosystem',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutManifestoRoute = AboutManifestoRouteImport.update({
+  id: '/manifesto',
+  path: '/manifesto',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutOpenSourceRoute = AboutOpenSourceRouteImport.update({
+  id: '/open-source',
+  path: '/open-source',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutSovereigntyRoute = AboutSovereigntyRouteImport.update({
+  id: '/sovereignty',
+  path: '/sovereignty',
+  getParentRoute: () => AboutRoute,
+} as any)
+const AboutUsernamesRoute = AboutUsernamesRouteImport.update({
+  id: '/usernames',
+  path: '/usernames',
+  getParentRoute: () => AboutRoute,
+} as any)
 const AccountAccountViewRoute = AccountAccountViewRouteImport.update({
   id: '/account/$accountView',
   path: '/account/$accountView',
@@ -526,9 +631,74 @@ const ClaimTokenRoute = ClaimTokenRouteImport.update({
   path: '/claim/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DevIndexRoute = DevIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevAiMcpRoute = DevAiMcpRouteImport.update({
+  id: '/ai-mcp',
+  path: '/ai-mcp',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevCredentialsRoute = DevCredentialsRouteImport.update({
+  id: '/credentials',
+  path: '/credentials',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevCredentialsApiRoute = DevCredentialsApiRouteImport.update({
+  id: '/credentials-api',
+  path: '/credentials-api',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevDesignSystemRoute = DevDesignSystemRouteImport.update({
+  id: '/design-system',
+  path: '/design-system',
+  getParentRoute: () => DevRoute,
+} as any)
 const DevEmailsRoute = DevEmailsRouteImport.update({
-  id: '/dev/emails',
-  path: '/dev/emails',
+  id: '/emails',
+  path: '/emails',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevGetStartedRoute = DevGetStartedRouteImport.update({
+  id: '/get-started',
+  path: '/get-started',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevIdentityRoute = DevIdentityRouteImport.update({
+  id: '/identity',
+  path: '/identity',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevIdentityOidcRoute = DevIdentityOidcRouteImport.update({
+  id: '/identity-oidc',
+  path: '/identity-oidc',
+  getParentRoute: () => DevRoute,
+} as any)
+const DevWebhooksRoute = DevWebhooksRouteImport.update({
+  id: '/webhooks',
+  path: '/webhooks',
+  getParentRoute: () => DevRoute,
+} as any)
+const DeveloperAiMcpRoute = DeveloperAiMcpRouteImport.update({
+  id: '/developer/ai-mcp',
+  path: '/developer/ai-mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeveloperCredentialsRoute = DeveloperCredentialsRouteImport.update({
+  id: '/developer/credentials',
+  path: '/developer/credentials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeveloperIdentityOauthRoute = DeveloperIdentityOauthRouteImport.update({
+  id: '/developer/identity-oauth',
+  path: '/developer/identity-oauth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeveloperWebhooksRoute = DeveloperWebhooksRouteImport.update({
+  id: '/developer/webhooks',
+  path: '/developer/webhooks',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ESlugRoute = ESlugRouteImport.update({
@@ -561,6 +731,56 @@ const IdentityRevokeRoute = IdentityRevokeRouteImport.update({
   path: '/identity/revoke',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InfoIndexRoute = InfoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoAccountMergeRoute = InfoAccountMergeRouteImport.update({
+  id: '/account-merge',
+  path: '/account-merge',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoAccountSecurityRoute = InfoAccountSecurityRouteImport.update({
+  id: '/account-security',
+  path: '/account-security',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoBadgesRoute = InfoBadgesRouteImport.update({
+  id: '/badges',
+  path: '/badges',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoCredentialsRoute = InfoCredentialsRouteImport.update({
+  id: '/credentials',
+  path: '/credentials',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoCustomBadgesRoute = InfoCustomBadgesRouteImport.update({
+  id: '/custom-badges',
+  path: '/custom-badges',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoProfilesRoute = InfoProfilesRouteImport.update({
+  id: '/profiles',
+  path: '/profiles',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoQrStudioRoute = InfoQrStudioRouteImport.update({
+  id: '/qr-studio',
+  path: '/qr-studio',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoUsernamesRoute = InfoUsernamesRouteImport.update({
+  id: '/usernames',
+  path: '/usernames',
+  getParentRoute: () => InfoRoute,
+} as any)
+const InfoWalletRoute = InfoWalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => InfoRoute,
+} as any)
 const OauthAuthorizeRoute = OauthAuthorizeRouteImport.update({
   id: '/oauth/authorize',
   path: '/oauth/authorize',
@@ -585,6 +805,57 @@ const SSlugRoute = SSlugRouteImport.update({
   id: '/s/$slug',
   path: '/s/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyIndexRoute = SafetyIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetyArchitectureRoute = SafetyArchitectureRouteImport.update({
+  id: '/architecture',
+  path: '/architecture',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetyComplianceRoute = SafetyComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetyCryptographyRoute = SafetyCryptographyRouteImport.update({
+  id: '/cryptography',
+  path: '/cryptography',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetyDataDeletionRoute = SafetyDataDeletionRouteImport.update({
+  id: '/data-deletion',
+  path: '/data-deletion',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetyPrivacyRoute = SafetyPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetySecurityAdvisoriesRoute =
+  SafetySecurityAdvisoriesRouteImport.update({
+    id: '/security-advisories',
+    path: '/security-advisories',
+    getParentRoute: () => SafetyRoute,
+  } as any)
+const SafetyTermsRoute = SafetyTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetyTransparencyRoute = SafetyTransparencyRouteImport.update({
+  id: '/transparency',
+  path: '/transparency',
+  getParentRoute: () => SafetyRoute,
+} as any)
+const SafetyZeroKnowledgeRoute = SafetyZeroKnowledgeRouteImport.update({
+  id: '/zero-knowledge',
+  path: '/zero-knowledge',
+  getParentRoute: () => SafetyRoute,
 } as any)
 const StatsTokenRoute = StatsTokenRouteImport.update({
   id: '/stats/$token',
@@ -1288,7 +1559,7 @@ const ApiPublicIntegrationsMastodonAvatarRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$username': typeof UsernameRoute
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteWithChildren
   '/api': typeof ApiRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
@@ -1296,6 +1567,7 @@ export interface FileRoutesByFullPath {
   '/claim': typeof ClaimRoute
   '/contact': typeof ContactRoute
   '/data-deletion': typeof DataDeletionRoute
+  '/dev': typeof DevRouteWithChildren
   '/developers': typeof DevelopersRoute
   '/email-templates': typeof EmailTemplatesRoute
   '/explore': typeof ExploreRoute
@@ -1303,12 +1575,14 @@ export interface FileRoutesByFullPath {
   '/go': typeof GoRoute
   '/hub': typeof HubRoute
   '/iban-qr': typeof IbanQrRoute
+  '/info': typeof InfoRouteWithChildren
   '/leaving': typeof LeavingRoute
   '/manifesto': typeof ManifestoRoute
   '/onboarding': typeof OnboardingRoute
   '/press': typeof PressRoute
   '/privacy': typeof PrivacyRoute
   '/qr': typeof QrRoute
+  '/safety': typeof SafetyRouteWithChildren
   '/security': typeof SecurityRoute
   '/self-hosting': typeof SelfHostingRoute
   '/signature': typeof SignatureRoute
@@ -1335,6 +1609,14 @@ export interface FileRoutesByFullPath {
   '/domains': typeof AuthenticatedDomainsRoute
   '/my-data': typeof AuthenticatedMyDataRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/about/badges': typeof AboutBadgesRoute
+  '/about/brand': typeof AboutBrandRoute
+  '/about/custom-badges': typeof AboutCustomBadgesRoute
+  '/about/ecosystem': typeof AboutEcosystemRoute
+  '/about/manifesto': typeof AboutManifestoRoute
+  '/about/open-source': typeof AboutOpenSourceRoute
+  '/about/sovereignty': typeof AboutSovereigntyRoute
+  '/about/usernames': typeof AboutUsernamesRoute
   '/account/$accountView': typeof AccountAccountViewRoute
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api/payment-status': typeof ApiPaymentStatusRoute
@@ -1347,23 +1629,57 @@ export interface FileRoutesByFullPath {
   '/booking/$bookingId': typeof BookingBookingIdRoute
   '/brand/$': typeof BrandSplatRoute
   '/claim/$token': typeof ClaimTokenRoute
+  '/dev/ai-mcp': typeof DevAiMcpRoute
+  '/dev/credentials': typeof DevCredentialsRoute
+  '/dev/credentials-api': typeof DevCredentialsApiRoute
+  '/dev/design-system': typeof DevDesignSystemRoute
   '/dev/emails': typeof DevEmailsRoute
+  '/dev/get-started': typeof DevGetStartedRoute
+  '/dev/identity': typeof DevIdentityRoute
+  '/dev/identity-oidc': typeof DevIdentityOidcRoute
+  '/dev/webhooks': typeof DevWebhooksRoute
+  '/developer/ai-mcp': typeof DeveloperAiMcpRoute
+  '/developer/credentials': typeof DeveloperCredentialsRoute
+  '/developer/identity-oauth': typeof DeveloperIdentityOauthRoute
+  '/developer/webhooks': typeof DeveloperWebhooksRoute
   '/e/$slug': typeof ESlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/f/$id': typeof FIdRoute
   '/feedback/$slug': typeof FeedbackSlugRoute
   '/gift/$code': typeof GiftCodeRoute
   '/identity/revoke': typeof IdentityRevokeRoute
+  '/info/account-merge': typeof InfoAccountMergeRoute
+  '/info/account-security': typeof InfoAccountSecurityRoute
+  '/info/badges': typeof InfoBadgesRoute
+  '/info/credentials': typeof InfoCredentialsRoute
+  '/info/custom-badges': typeof InfoCustomBadgesRoute
+  '/info/profiles': typeof InfoProfilesRoute
+  '/info/qr-studio': typeof InfoQrStudioRoute
+  '/info/usernames': typeof InfoUsernamesRoute
+  '/info/wallet': typeof InfoWalletRoute
   '/oauth/authorize': typeof OauthAuthorizeRoute
   '/oauth/end-session': typeof OauthEndSessionRoute
   '/r/$username': typeof RUsernameRoute
   '/review/$token': typeof ReviewTokenRoute
   '/s/$slug': typeof SSlugRoute
+  '/safety/architecture': typeof SafetyArchitectureRoute
+  '/safety/compliance': typeof SafetyComplianceRoute
+  '/safety/cryptography': typeof SafetyCryptographyRoute
+  '/safety/data-deletion': typeof SafetyDataDeletionRoute
+  '/safety/privacy': typeof SafetyPrivacyRoute
+  '/safety/security-advisories': typeof SafetySecurityAdvisoriesRoute
+  '/safety/terms': typeof SafetyTermsRoute
+  '/safety/transparency': typeof SafetyTransparencyRoute
+  '/safety/zero-knowledge': typeof SafetyZeroKnowledgeRoute
   '/stats/$token': typeof StatsTokenRoute
   '/u/$username': typeof UUsernameRoute
   '/w/$slug': typeof WSlugRoute
   '/workspace-transfer/$token': typeof WorkspaceTransferTokenRoute
+  '/about/': typeof AboutIndexRoute
   '/auth/': typeof AuthIndexRoute
+  '/dev/': typeof DevIndexRoute
+  '/info/': typeof InfoIndexRoute
+  '/safety/': typeof SafetyIndexRoute
   '/admin/brands': typeof AuthenticatedAdminBrandsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/custom-badges': typeof AuthenticatedAdminCustomBadgesRoute
@@ -1490,7 +1806,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$username': typeof UsernameRoute
-  '/about': typeof AboutRoute
   '/api': typeof ApiRouteWithChildren
   '/batch': typeof BatchRoute
   '/card': typeof CardRoute
@@ -1534,6 +1849,14 @@ export interface FileRoutesByTo {
   '/domains': typeof AuthenticatedDomainsRoute
   '/my-data': typeof AuthenticatedMyDataRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/about/badges': typeof AboutBadgesRoute
+  '/about/brand': typeof AboutBrandRoute
+  '/about/custom-badges': typeof AboutCustomBadgesRoute
+  '/about/ecosystem': typeof AboutEcosystemRoute
+  '/about/manifesto': typeof AboutManifestoRoute
+  '/about/open-source': typeof AboutOpenSourceRoute
+  '/about/sovereignty': typeof AboutSovereigntyRoute
+  '/about/usernames': typeof AboutUsernamesRoute
   '/account/$accountView': typeof AccountAccountViewRoute
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api/payment-status': typeof ApiPaymentStatusRoute
@@ -1546,23 +1869,57 @@ export interface FileRoutesByTo {
   '/booking/$bookingId': typeof BookingBookingIdRoute
   '/brand/$': typeof BrandSplatRoute
   '/claim/$token': typeof ClaimTokenRoute
+  '/dev/ai-mcp': typeof DevAiMcpRoute
+  '/dev/credentials': typeof DevCredentialsRoute
+  '/dev/credentials-api': typeof DevCredentialsApiRoute
+  '/dev/design-system': typeof DevDesignSystemRoute
   '/dev/emails': typeof DevEmailsRoute
+  '/dev/get-started': typeof DevGetStartedRoute
+  '/dev/identity': typeof DevIdentityRoute
+  '/dev/identity-oidc': typeof DevIdentityOidcRoute
+  '/dev/webhooks': typeof DevWebhooksRoute
+  '/developer/ai-mcp': typeof DeveloperAiMcpRoute
+  '/developer/credentials': typeof DeveloperCredentialsRoute
+  '/developer/identity-oauth': typeof DeveloperIdentityOauthRoute
+  '/developer/webhooks': typeof DeveloperWebhooksRoute
   '/e/$slug': typeof ESlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/f/$id': typeof FIdRoute
   '/feedback/$slug': typeof FeedbackSlugRoute
   '/gift/$code': typeof GiftCodeRoute
   '/identity/revoke': typeof IdentityRevokeRoute
+  '/info/account-merge': typeof InfoAccountMergeRoute
+  '/info/account-security': typeof InfoAccountSecurityRoute
+  '/info/badges': typeof InfoBadgesRoute
+  '/info/credentials': typeof InfoCredentialsRoute
+  '/info/custom-badges': typeof InfoCustomBadgesRoute
+  '/info/profiles': typeof InfoProfilesRoute
+  '/info/qr-studio': typeof InfoQrStudioRoute
+  '/info/usernames': typeof InfoUsernamesRoute
+  '/info/wallet': typeof InfoWalletRoute
   '/oauth/authorize': typeof OauthAuthorizeRoute
   '/oauth/end-session': typeof OauthEndSessionRoute
   '/r/$username': typeof RUsernameRoute
   '/review/$token': typeof ReviewTokenRoute
   '/s/$slug': typeof SSlugRoute
+  '/safety/architecture': typeof SafetyArchitectureRoute
+  '/safety/compliance': typeof SafetyComplianceRoute
+  '/safety/cryptography': typeof SafetyCryptographyRoute
+  '/safety/data-deletion': typeof SafetyDataDeletionRoute
+  '/safety/privacy': typeof SafetyPrivacyRoute
+  '/safety/security-advisories': typeof SafetySecurityAdvisoriesRoute
+  '/safety/terms': typeof SafetyTermsRoute
+  '/safety/transparency': typeof SafetyTransparencyRoute
+  '/safety/zero-knowledge': typeof SafetyZeroKnowledgeRoute
   '/stats/$token': typeof StatsTokenRoute
   '/u/$username': typeof UUsernameRoute
   '/w/$slug': typeof WSlugRoute
   '/workspace-transfer/$token': typeof WorkspaceTransferTokenRoute
+  '/about': typeof AboutIndexRoute
   '/auth': typeof AuthIndexRoute
+  '/dev': typeof DevIndexRoute
+  '/info': typeof InfoIndexRoute
+  '/safety': typeof SafetyIndexRoute
   '/admin/brands': typeof AuthenticatedAdminBrandsRoute
   '/admin/contact': typeof AuthenticatedAdminContactRoute
   '/admin/custom-badges': typeof AuthenticatedAdminCustomBadgesRoute
@@ -1689,7 +2046,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$username': typeof UsernameRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
-  '/about': typeof AboutRoute
+  '/about': typeof AboutRouteWithChildren
   '/api': typeof ApiRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/batch': typeof BatchRoute
@@ -1697,6 +2054,7 @@ export interface FileRoutesById {
   '/claim': typeof ClaimRoute
   '/contact': typeof ContactRoute
   '/data-deletion': typeof DataDeletionRoute
+  '/dev': typeof DevRouteWithChildren
   '/developers': typeof DevelopersRoute
   '/email-templates': typeof EmailTemplatesRoute
   '/explore': typeof ExploreRoute
@@ -1704,12 +2062,14 @@ export interface FileRoutesById {
   '/go': typeof GoRoute
   '/hub': typeof HubRoute
   '/iban-qr': typeof IbanQrRoute
+  '/info': typeof InfoRouteWithChildren
   '/leaving': typeof LeavingRoute
   '/manifesto': typeof ManifestoRoute
   '/onboarding': typeof OnboardingRoute
   '/press': typeof PressRoute
   '/privacy': typeof PrivacyRoute
   '/qr': typeof QrRoute
+  '/safety': typeof SafetyRouteWithChildren
   '/security': typeof SecurityRoute
   '/self-hosting': typeof SelfHostingRoute
   '/signature': typeof SignatureRoute
@@ -1736,6 +2096,14 @@ export interface FileRoutesById {
   '/_authenticated/domains': typeof AuthenticatedDomainsRoute
   '/_authenticated/my-data': typeof AuthenticatedMyDataRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/about/badges': typeof AboutBadgesRoute
+  '/about/brand': typeof AboutBrandRoute
+  '/about/custom-badges': typeof AboutCustomBadgesRoute
+  '/about/ecosystem': typeof AboutEcosystemRoute
+  '/about/manifesto': typeof AboutManifestoRoute
+  '/about/open-source': typeof AboutOpenSourceRoute
+  '/about/sovereignty': typeof AboutSovereigntyRoute
+  '/about/usernames': typeof AboutUsernamesRoute
   '/account/$accountView': typeof AccountAccountViewRoute
   '/api/claim-root': typeof ApiClaimRootRoute
   '/api_/payment-status': typeof ApiPaymentStatusRoute
@@ -1748,23 +2116,57 @@ export interface FileRoutesById {
   '/booking/$bookingId': typeof BookingBookingIdRoute
   '/brand/$': typeof BrandSplatRoute
   '/claim_/$token': typeof ClaimTokenRoute
+  '/dev/ai-mcp': typeof DevAiMcpRoute
+  '/dev/credentials': typeof DevCredentialsRoute
+  '/dev/credentials-api': typeof DevCredentialsApiRoute
+  '/dev/design-system': typeof DevDesignSystemRoute
   '/dev/emails': typeof DevEmailsRoute
+  '/dev/get-started': typeof DevGetStartedRoute
+  '/dev/identity': typeof DevIdentityRoute
+  '/dev/identity-oidc': typeof DevIdentityOidcRoute
+  '/dev/webhooks': typeof DevWebhooksRoute
+  '/developer/ai-mcp': typeof DeveloperAiMcpRoute
+  '/developer/credentials': typeof DeveloperCredentialsRoute
+  '/developer/identity-oauth': typeof DeveloperIdentityOauthRoute
+  '/developer/webhooks': typeof DeveloperWebhooksRoute
   '/e/$slug': typeof ESlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/f/$id': typeof FIdRoute
   '/feedback/$slug': typeof FeedbackSlugRoute
   '/gift_/$code': typeof GiftCodeRoute
   '/identity/revoke': typeof IdentityRevokeRoute
+  '/info/account-merge': typeof InfoAccountMergeRoute
+  '/info/account-security': typeof InfoAccountSecurityRoute
+  '/info/badges': typeof InfoBadgesRoute
+  '/info/credentials': typeof InfoCredentialsRoute
+  '/info/custom-badges': typeof InfoCustomBadgesRoute
+  '/info/profiles': typeof InfoProfilesRoute
+  '/info/qr-studio': typeof InfoQrStudioRoute
+  '/info/usernames': typeof InfoUsernamesRoute
+  '/info/wallet': typeof InfoWalletRoute
   '/oauth/authorize': typeof OauthAuthorizeRoute
   '/oauth/end-session': typeof OauthEndSessionRoute
   '/r/$username': typeof RUsernameRoute
   '/review/$token': typeof ReviewTokenRoute
   '/s/$slug': typeof SSlugRoute
+  '/safety/architecture': typeof SafetyArchitectureRoute
+  '/safety/compliance': typeof SafetyComplianceRoute
+  '/safety/cryptography': typeof SafetyCryptographyRoute
+  '/safety/data-deletion': typeof SafetyDataDeletionRoute
+  '/safety/privacy': typeof SafetyPrivacyRoute
+  '/safety/security-advisories': typeof SafetySecurityAdvisoriesRoute
+  '/safety/terms': typeof SafetyTermsRoute
+  '/safety/transparency': typeof SafetyTransparencyRoute
+  '/safety/zero-knowledge': typeof SafetyZeroKnowledgeRoute
   '/stats/$token': typeof StatsTokenRoute
   '/u/$username': typeof UUsernameRoute
   '/w/$slug': typeof WSlugRoute
   '/workspace-transfer/$token': typeof WorkspaceTransferTokenRoute
+  '/about/': typeof AboutIndexRoute
   '/auth/': typeof AuthIndexRoute
+  '/dev/': typeof DevIndexRoute
+  '/info/': typeof InfoIndexRoute
+  '/safety/': typeof SafetyIndexRoute
   '/_authenticated/admin/brands': typeof AuthenticatedAdminBrandsRoute
   '/_authenticated/admin/contact': typeof AuthenticatedAdminContactRoute
   '/_authenticated/admin/custom-badges': typeof AuthenticatedAdminCustomBadgesRoute
@@ -1901,6 +2303,7 @@ export interface FileRouteTypes {
     | '/claim'
     | '/contact'
     | '/data-deletion'
+    | '/dev'
     | '/developers'
     | '/email-templates'
     | '/explore'
@@ -1908,12 +2311,14 @@ export interface FileRouteTypes {
     | '/go'
     | '/hub'
     | '/iban-qr'
+    | '/info'
     | '/leaving'
     | '/manifesto'
     | '/onboarding'
     | '/press'
     | '/privacy'
     | '/qr'
+    | '/safety'
     | '/security'
     | '/self-hosting'
     | '/signature'
@@ -1940,6 +2345,14 @@ export interface FileRouteTypes {
     | '/domains'
     | '/my-data'
     | '/settings'
+    | '/about/badges'
+    | '/about/brand'
+    | '/about/custom-badges'
+    | '/about/ecosystem'
+    | '/about/manifesto'
+    | '/about/open-source'
+    | '/about/sovereignty'
+    | '/about/usernames'
     | '/account/$accountView'
     | '/api/claim-root'
     | '/api/payment-status'
@@ -1952,23 +2365,57 @@ export interface FileRouteTypes {
     | '/booking/$bookingId'
     | '/brand/$'
     | '/claim/$token'
+    | '/dev/ai-mcp'
+    | '/dev/credentials'
+    | '/dev/credentials-api'
+    | '/dev/design-system'
     | '/dev/emails'
+    | '/dev/get-started'
+    | '/dev/identity'
+    | '/dev/identity-oidc'
+    | '/dev/webhooks'
+    | '/developer/ai-mcp'
+    | '/developer/credentials'
+    | '/developer/identity-oauth'
+    | '/developer/webhooks'
     | '/e/$slug'
     | '/event/$slug'
     | '/f/$id'
     | '/feedback/$slug'
     | '/gift/$code'
     | '/identity/revoke'
+    | '/info/account-merge'
+    | '/info/account-security'
+    | '/info/badges'
+    | '/info/credentials'
+    | '/info/custom-badges'
+    | '/info/profiles'
+    | '/info/qr-studio'
+    | '/info/usernames'
+    | '/info/wallet'
     | '/oauth/authorize'
     | '/oauth/end-session'
     | '/r/$username'
     | '/review/$token'
     | '/s/$slug'
+    | '/safety/architecture'
+    | '/safety/compliance'
+    | '/safety/cryptography'
+    | '/safety/data-deletion'
+    | '/safety/privacy'
+    | '/safety/security-advisories'
+    | '/safety/terms'
+    | '/safety/transparency'
+    | '/safety/zero-knowledge'
     | '/stats/$token'
     | '/u/$username'
     | '/w/$slug'
     | '/workspace-transfer/$token'
+    | '/about/'
     | '/auth/'
+    | '/dev/'
+    | '/info/'
+    | '/safety/'
     | '/admin/brands'
     | '/admin/contact'
     | '/admin/custom-badges'
@@ -2095,7 +2542,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$username'
-    | '/about'
     | '/api'
     | '/batch'
     | '/card'
@@ -2139,6 +2585,14 @@ export interface FileRouteTypes {
     | '/domains'
     | '/my-data'
     | '/settings'
+    | '/about/badges'
+    | '/about/brand'
+    | '/about/custom-badges'
+    | '/about/ecosystem'
+    | '/about/manifesto'
+    | '/about/open-source'
+    | '/about/sovereignty'
+    | '/about/usernames'
     | '/account/$accountView'
     | '/api/claim-root'
     | '/api/payment-status'
@@ -2151,23 +2605,57 @@ export interface FileRouteTypes {
     | '/booking/$bookingId'
     | '/brand/$'
     | '/claim/$token'
+    | '/dev/ai-mcp'
+    | '/dev/credentials'
+    | '/dev/credentials-api'
+    | '/dev/design-system'
     | '/dev/emails'
+    | '/dev/get-started'
+    | '/dev/identity'
+    | '/dev/identity-oidc'
+    | '/dev/webhooks'
+    | '/developer/ai-mcp'
+    | '/developer/credentials'
+    | '/developer/identity-oauth'
+    | '/developer/webhooks'
     | '/e/$slug'
     | '/event/$slug'
     | '/f/$id'
     | '/feedback/$slug'
     | '/gift/$code'
     | '/identity/revoke'
+    | '/info/account-merge'
+    | '/info/account-security'
+    | '/info/badges'
+    | '/info/credentials'
+    | '/info/custom-badges'
+    | '/info/profiles'
+    | '/info/qr-studio'
+    | '/info/usernames'
+    | '/info/wallet'
     | '/oauth/authorize'
     | '/oauth/end-session'
     | '/r/$username'
     | '/review/$token'
     | '/s/$slug'
+    | '/safety/architecture'
+    | '/safety/compliance'
+    | '/safety/cryptography'
+    | '/safety/data-deletion'
+    | '/safety/privacy'
+    | '/safety/security-advisories'
+    | '/safety/terms'
+    | '/safety/transparency'
+    | '/safety/zero-knowledge'
     | '/stats/$token'
     | '/u/$username'
     | '/w/$slug'
     | '/workspace-transfer/$token'
+    | '/about'
     | '/auth'
+    | '/dev'
+    | '/info'
+    | '/safety'
     | '/admin/brands'
     | '/admin/contact'
     | '/admin/custom-badges'
@@ -2301,6 +2789,7 @@ export interface FileRouteTypes {
     | '/claim'
     | '/contact'
     | '/data-deletion'
+    | '/dev'
     | '/developers'
     | '/email-templates'
     | '/explore'
@@ -2308,12 +2797,14 @@ export interface FileRouteTypes {
     | '/go'
     | '/hub'
     | '/iban-qr'
+    | '/info'
     | '/leaving'
     | '/manifesto'
     | '/onboarding'
     | '/press'
     | '/privacy'
     | '/qr'
+    | '/safety'
     | '/security'
     | '/self-hosting'
     | '/signature'
@@ -2340,6 +2831,14 @@ export interface FileRouteTypes {
     | '/_authenticated/domains'
     | '/_authenticated/my-data'
     | '/_authenticated/settings'
+    | '/about/badges'
+    | '/about/brand'
+    | '/about/custom-badges'
+    | '/about/ecosystem'
+    | '/about/manifesto'
+    | '/about/open-source'
+    | '/about/sovereignty'
+    | '/about/usernames'
     | '/account/$accountView'
     | '/api/claim-root'
     | '/api_/payment-status'
@@ -2352,23 +2851,57 @@ export interface FileRouteTypes {
     | '/booking/$bookingId'
     | '/brand/$'
     | '/claim_/$token'
+    | '/dev/ai-mcp'
+    | '/dev/credentials'
+    | '/dev/credentials-api'
+    | '/dev/design-system'
     | '/dev/emails'
+    | '/dev/get-started'
+    | '/dev/identity'
+    | '/dev/identity-oidc'
+    | '/dev/webhooks'
+    | '/developer/ai-mcp'
+    | '/developer/credentials'
+    | '/developer/identity-oauth'
+    | '/developer/webhooks'
     | '/e/$slug'
     | '/event/$slug'
     | '/f/$id'
     | '/feedback/$slug'
     | '/gift_/$code'
     | '/identity/revoke'
+    | '/info/account-merge'
+    | '/info/account-security'
+    | '/info/badges'
+    | '/info/credentials'
+    | '/info/custom-badges'
+    | '/info/profiles'
+    | '/info/qr-studio'
+    | '/info/usernames'
+    | '/info/wallet'
     | '/oauth/authorize'
     | '/oauth/end-session'
     | '/r/$username'
     | '/review/$token'
     | '/s/$slug'
+    | '/safety/architecture'
+    | '/safety/compliance'
+    | '/safety/cryptography'
+    | '/safety/data-deletion'
+    | '/safety/privacy'
+    | '/safety/security-advisories'
+    | '/safety/terms'
+    | '/safety/transparency'
+    | '/safety/zero-knowledge'
     | '/stats/$token'
     | '/u/$username'
     | '/w/$slug'
     | '/workspace-transfer/$token'
+    | '/about/'
     | '/auth/'
+    | '/dev/'
+    | '/info/'
+    | '/safety/'
     | '/_authenticated/admin/brands'
     | '/_authenticated/admin/contact'
     | '/_authenticated/admin/custom-badges'
@@ -2497,7 +3030,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   UsernameRoute: typeof UsernameRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
-  AboutRoute: typeof AboutRoute
+  AboutRoute: typeof AboutRouteWithChildren
   ApiRoute: typeof ApiRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
   BatchRoute: typeof BatchRoute
@@ -2505,6 +3038,7 @@ export interface RootRouteChildren {
   ClaimRoute: typeof ClaimRoute
   ContactRoute: typeof ContactRoute
   DataDeletionRoute: typeof DataDeletionRoute
+  DevRoute: typeof DevRouteWithChildren
   DevelopersRoute: typeof DevelopersRoute
   EmailTemplatesRoute: typeof EmailTemplatesRoute
   ExploreRoute: typeof ExploreRoute
@@ -2512,12 +3046,14 @@ export interface RootRouteChildren {
   GoRoute: typeof GoRoute
   HubRoute: typeof HubRoute
   IbanQrRoute: typeof IbanQrRoute
+  InfoRoute: typeof InfoRouteWithChildren
   LeavingRoute: typeof LeavingRoute
   ManifestoRoute: typeof ManifestoRoute
   OnboardingRoute: typeof OnboardingRoute
   PressRoute: typeof PressRoute
   PrivacyRoute: typeof PrivacyRoute
   QrRoute: typeof QrRoute
+  SafetyRoute: typeof SafetyRouteWithChildren
   SecurityRoute: typeof SecurityRoute
   SelfHostingRoute: typeof SelfHostingRoute
   SignatureRoute: typeof SignatureRoute
@@ -2547,7 +3083,10 @@ export interface RootRouteChildren {
   BookingBookingIdRoute: typeof BookingBookingIdRoute
   BrandSplatRoute: typeof BrandSplatRoute
   ClaimTokenRoute: typeof ClaimTokenRoute
-  DevEmailsRoute: typeof DevEmailsRoute
+  DeveloperAiMcpRoute: typeof DeveloperAiMcpRoute
+  DeveloperCredentialsRoute: typeof DeveloperCredentialsRoute
+  DeveloperIdentityOauthRoute: typeof DeveloperIdentityOauthRoute
+  DeveloperWebhooksRoute: typeof DeveloperWebhooksRoute
   ESlugRoute: typeof ESlugRoute
   EventSlugRoute: typeof EventSlugRoute
   FIdRoute: typeof FIdRoute
@@ -2716,6 +3255,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DataDeletionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dev': {
+      id: '/dev'
+      path: '/dev'
+      fullPath: '/dev'
+      preLoaderRoute: typeof DevRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/developers': {
       id: '/developers'
       path: '/developers'
@@ -2765,6 +3311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IbanQrRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/info': {
+      id: '/info'
+      path: '/info'
+      fullPath: '/info'
+      preLoaderRoute: typeof InfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/leaving': {
       id: '/leaving'
       path: '/leaving'
@@ -2805,6 +3358,13 @@ declare module '@tanstack/react-router' {
       path: '/qr'
       fullPath: '/qr'
       preLoaderRoute: typeof QrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/security': {
@@ -2989,6 +3549,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/about/': {
+      id: '/about/'
+      path: '/'
+      fullPath: '/about/'
+      preLoaderRoute: typeof AboutIndexRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/badges': {
+      id: '/about/badges'
+      path: '/badges'
+      fullPath: '/about/badges'
+      preLoaderRoute: typeof AboutBadgesRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/brand': {
+      id: '/about/brand'
+      path: '/brand'
+      fullPath: '/about/brand'
+      preLoaderRoute: typeof AboutBrandRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/custom-badges': {
+      id: '/about/custom-badges'
+      path: '/custom-badges'
+      fullPath: '/about/custom-badges'
+      preLoaderRoute: typeof AboutCustomBadgesRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/ecosystem': {
+      id: '/about/ecosystem'
+      path: '/ecosystem'
+      fullPath: '/about/ecosystem'
+      preLoaderRoute: typeof AboutEcosystemRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/manifesto': {
+      id: '/about/manifesto'
+      path: '/manifesto'
+      fullPath: '/about/manifesto'
+      preLoaderRoute: typeof AboutManifestoRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/open-source': {
+      id: '/about/open-source'
+      path: '/open-source'
+      fullPath: '/about/open-source'
+      preLoaderRoute: typeof AboutOpenSourceRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/sovereignty': {
+      id: '/about/sovereignty'
+      path: '/sovereignty'
+      fullPath: '/about/sovereignty'
+      preLoaderRoute: typeof AboutSovereigntyRouteImport
+      parentRoute: typeof AboutRoute
+    }
+    '/about/usernames': {
+      id: '/about/usernames'
+      path: '/usernames'
+      fullPath: '/about/usernames'
+      preLoaderRoute: typeof AboutUsernamesRouteImport
+      parentRoute: typeof AboutRoute
+    }
     '/account/$accountView': {
       id: '/account/$accountView'
       path: '/account/$accountView'
@@ -3080,11 +3703,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClaimTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dev/': {
+      id: '/dev/'
+      path: '/'
+      fullPath: '/dev/'
+      preLoaderRoute: typeof DevIndexRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/ai-mcp': {
+      id: '/dev/ai-mcp'
+      path: '/ai-mcp'
+      fullPath: '/dev/ai-mcp'
+      preLoaderRoute: typeof DevAiMcpRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/credentials': {
+      id: '/dev/credentials'
+      path: '/credentials'
+      fullPath: '/dev/credentials'
+      preLoaderRoute: typeof DevCredentialsRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/credentials-api': {
+      id: '/dev/credentials-api'
+      path: '/credentials-api'
+      fullPath: '/dev/credentials-api'
+      preLoaderRoute: typeof DevCredentialsApiRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/design-system': {
+      id: '/dev/design-system'
+      path: '/design-system'
+      fullPath: '/dev/design-system'
+      preLoaderRoute: typeof DevDesignSystemRouteImport
+      parentRoute: typeof DevRoute
+    }
     '/dev/emails': {
       id: '/dev/emails'
-      path: '/dev/emails'
+      path: '/emails'
       fullPath: '/dev/emails'
       preLoaderRoute: typeof DevEmailsRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/get-started': {
+      id: '/dev/get-started'
+      path: '/get-started'
+      fullPath: '/dev/get-started'
+      preLoaderRoute: typeof DevGetStartedRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/identity': {
+      id: '/dev/identity'
+      path: '/identity'
+      fullPath: '/dev/identity'
+      preLoaderRoute: typeof DevIdentityRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/identity-oidc': {
+      id: '/dev/identity-oidc'
+      path: '/identity-oidc'
+      fullPath: '/dev/identity-oidc'
+      preLoaderRoute: typeof DevIdentityOidcRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/dev/webhooks': {
+      id: '/dev/webhooks'
+      path: '/webhooks'
+      fullPath: '/dev/webhooks'
+      preLoaderRoute: typeof DevWebhooksRouteImport
+      parentRoute: typeof DevRoute
+    }
+    '/developer/ai-mcp': {
+      id: '/developer/ai-mcp'
+      path: '/developer/ai-mcp'
+      fullPath: '/developer/ai-mcp'
+      preLoaderRoute: typeof DeveloperAiMcpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/developer/credentials': {
+      id: '/developer/credentials'
+      path: '/developer/credentials'
+      fullPath: '/developer/credentials'
+      preLoaderRoute: typeof DeveloperCredentialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/developer/identity-oauth': {
+      id: '/developer/identity-oauth'
+      path: '/developer/identity-oauth'
+      fullPath: '/developer/identity-oauth'
+      preLoaderRoute: typeof DeveloperIdentityOauthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/developer/webhooks': {
+      id: '/developer/webhooks'
+      path: '/developer/webhooks'
+      fullPath: '/developer/webhooks'
+      preLoaderRoute: typeof DeveloperWebhooksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/e/$slug': {
@@ -3129,6 +3843,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IdentityRevokeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/info/': {
+      id: '/info/'
+      path: '/'
+      fullPath: '/info/'
+      preLoaderRoute: typeof InfoIndexRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/account-merge': {
+      id: '/info/account-merge'
+      path: '/account-merge'
+      fullPath: '/info/account-merge'
+      preLoaderRoute: typeof InfoAccountMergeRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/account-security': {
+      id: '/info/account-security'
+      path: '/account-security'
+      fullPath: '/info/account-security'
+      preLoaderRoute: typeof InfoAccountSecurityRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/badges': {
+      id: '/info/badges'
+      path: '/badges'
+      fullPath: '/info/badges'
+      preLoaderRoute: typeof InfoBadgesRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/credentials': {
+      id: '/info/credentials'
+      path: '/credentials'
+      fullPath: '/info/credentials'
+      preLoaderRoute: typeof InfoCredentialsRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/custom-badges': {
+      id: '/info/custom-badges'
+      path: '/custom-badges'
+      fullPath: '/info/custom-badges'
+      preLoaderRoute: typeof InfoCustomBadgesRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/profiles': {
+      id: '/info/profiles'
+      path: '/profiles'
+      fullPath: '/info/profiles'
+      preLoaderRoute: typeof InfoProfilesRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/qr-studio': {
+      id: '/info/qr-studio'
+      path: '/qr-studio'
+      fullPath: '/info/qr-studio'
+      preLoaderRoute: typeof InfoQrStudioRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/usernames': {
+      id: '/info/usernames'
+      path: '/usernames'
+      fullPath: '/info/usernames'
+      preLoaderRoute: typeof InfoUsernamesRouteImport
+      parentRoute: typeof InfoRoute
+    }
+    '/info/wallet': {
+      id: '/info/wallet'
+      path: '/wallet'
+      fullPath: '/info/wallet'
+      preLoaderRoute: typeof InfoWalletRouteImport
+      parentRoute: typeof InfoRoute
+    }
     '/oauth/authorize': {
       id: '/oauth/authorize'
       path: '/oauth/authorize'
@@ -3163,6 +3947,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/s/$slug'
       preLoaderRoute: typeof SSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/safety/': {
+      id: '/safety/'
+      path: '/'
+      fullPath: '/safety/'
+      preLoaderRoute: typeof SafetyIndexRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/architecture': {
+      id: '/safety/architecture'
+      path: '/architecture'
+      fullPath: '/safety/architecture'
+      preLoaderRoute: typeof SafetyArchitectureRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/compliance': {
+      id: '/safety/compliance'
+      path: '/compliance'
+      fullPath: '/safety/compliance'
+      preLoaderRoute: typeof SafetyComplianceRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/cryptography': {
+      id: '/safety/cryptography'
+      path: '/cryptography'
+      fullPath: '/safety/cryptography'
+      preLoaderRoute: typeof SafetyCryptographyRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/data-deletion': {
+      id: '/safety/data-deletion'
+      path: '/data-deletion'
+      fullPath: '/safety/data-deletion'
+      preLoaderRoute: typeof SafetyDataDeletionRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/privacy': {
+      id: '/safety/privacy'
+      path: '/privacy'
+      fullPath: '/safety/privacy'
+      preLoaderRoute: typeof SafetyPrivacyRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/security-advisories': {
+      id: '/safety/security-advisories'
+      path: '/security-advisories'
+      fullPath: '/safety/security-advisories'
+      preLoaderRoute: typeof SafetySecurityAdvisoriesRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/terms': {
+      id: '/safety/terms'
+      path: '/terms'
+      fullPath: '/safety/terms'
+      preLoaderRoute: typeof SafetyTermsRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/transparency': {
+      id: '/safety/transparency'
+      path: '/transparency'
+      fullPath: '/safety/transparency'
+      preLoaderRoute: typeof SafetyTransparencyRouteImport
+      parentRoute: typeof SafetyRoute
+    }
+    '/safety/zero-knowledge': {
+      id: '/safety/zero-knowledge'
+      path: '/zero-knowledge'
+      fullPath: '/safety/zero-knowledge'
+      preLoaderRoute: typeof SafetyZeroKnowledgeRouteImport
+      parentRoute: typeof SafetyRoute
     }
     '/stats/$token': {
       id: '/stats/$token'
@@ -4236,6 +5090,32 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface AboutRouteChildren {
+  AboutBadgesRoute: typeof AboutBadgesRoute
+  AboutBrandRoute: typeof AboutBrandRoute
+  AboutCustomBadgesRoute: typeof AboutCustomBadgesRoute
+  AboutEcosystemRoute: typeof AboutEcosystemRoute
+  AboutManifestoRoute: typeof AboutManifestoRoute
+  AboutOpenSourceRoute: typeof AboutOpenSourceRoute
+  AboutSovereigntyRoute: typeof AboutSovereigntyRoute
+  AboutUsernamesRoute: typeof AboutUsernamesRoute
+  AboutIndexRoute: typeof AboutIndexRoute
+}
+
+const AboutRouteChildren: AboutRouteChildren = {
+  AboutBadgesRoute: AboutBadgesRoute,
+  AboutBrandRoute: AboutBrandRoute,
+  AboutCustomBadgesRoute: AboutCustomBadgesRoute,
+  AboutEcosystemRoute: AboutEcosystemRoute,
+  AboutManifestoRoute: AboutManifestoRoute,
+  AboutOpenSourceRoute: AboutOpenSourceRoute,
+  AboutSovereigntyRoute: AboutSovereigntyRoute,
+  AboutUsernamesRoute: AboutUsernamesRoute,
+  AboutIndexRoute: AboutIndexRoute,
+}
+
+const AboutRouteWithChildren = AboutRoute._addFileChildren(AboutRouteChildren)
+
 interface ApiRouteChildren {
   ApiClaimRootRoute: typeof ApiClaimRootRoute
   ApiBookingsIdRoute: typeof ApiBookingsIdRoute
@@ -4264,6 +5144,91 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface DevRouteChildren {
+  DevAiMcpRoute: typeof DevAiMcpRoute
+  DevCredentialsRoute: typeof DevCredentialsRoute
+  DevCredentialsApiRoute: typeof DevCredentialsApiRoute
+  DevDesignSystemRoute: typeof DevDesignSystemRoute
+  DevEmailsRoute: typeof DevEmailsRoute
+  DevGetStartedRoute: typeof DevGetStartedRoute
+  DevIdentityRoute: typeof DevIdentityRoute
+  DevIdentityOidcRoute: typeof DevIdentityOidcRoute
+  DevWebhooksRoute: typeof DevWebhooksRoute
+  DevIndexRoute: typeof DevIndexRoute
+}
+
+const DevRouteChildren: DevRouteChildren = {
+  DevAiMcpRoute: DevAiMcpRoute,
+  DevCredentialsRoute: DevCredentialsRoute,
+  DevCredentialsApiRoute: DevCredentialsApiRoute,
+  DevDesignSystemRoute: DevDesignSystemRoute,
+  DevEmailsRoute: DevEmailsRoute,
+  DevGetStartedRoute: DevGetStartedRoute,
+  DevIdentityRoute: DevIdentityRoute,
+  DevIdentityOidcRoute: DevIdentityOidcRoute,
+  DevWebhooksRoute: DevWebhooksRoute,
+  DevIndexRoute: DevIndexRoute,
+}
+
+const DevRouteWithChildren = DevRoute._addFileChildren(DevRouteChildren)
+
+interface InfoRouteChildren {
+  InfoAccountMergeRoute: typeof InfoAccountMergeRoute
+  InfoAccountSecurityRoute: typeof InfoAccountSecurityRoute
+  InfoBadgesRoute: typeof InfoBadgesRoute
+  InfoCredentialsRoute: typeof InfoCredentialsRoute
+  InfoCustomBadgesRoute: typeof InfoCustomBadgesRoute
+  InfoProfilesRoute: typeof InfoProfilesRoute
+  InfoQrStudioRoute: typeof InfoQrStudioRoute
+  InfoUsernamesRoute: typeof InfoUsernamesRoute
+  InfoWalletRoute: typeof InfoWalletRoute
+  InfoIndexRoute: typeof InfoIndexRoute
+}
+
+const InfoRouteChildren: InfoRouteChildren = {
+  InfoAccountMergeRoute: InfoAccountMergeRoute,
+  InfoAccountSecurityRoute: InfoAccountSecurityRoute,
+  InfoBadgesRoute: InfoBadgesRoute,
+  InfoCredentialsRoute: InfoCredentialsRoute,
+  InfoCustomBadgesRoute: InfoCustomBadgesRoute,
+  InfoProfilesRoute: InfoProfilesRoute,
+  InfoQrStudioRoute: InfoQrStudioRoute,
+  InfoUsernamesRoute: InfoUsernamesRoute,
+  InfoWalletRoute: InfoWalletRoute,
+  InfoIndexRoute: InfoIndexRoute,
+}
+
+const InfoRouteWithChildren = InfoRoute._addFileChildren(InfoRouteChildren)
+
+interface SafetyRouteChildren {
+  SafetyArchitectureRoute: typeof SafetyArchitectureRoute
+  SafetyComplianceRoute: typeof SafetyComplianceRoute
+  SafetyCryptographyRoute: typeof SafetyCryptographyRoute
+  SafetyDataDeletionRoute: typeof SafetyDataDeletionRoute
+  SafetyPrivacyRoute: typeof SafetyPrivacyRoute
+  SafetySecurityAdvisoriesRoute: typeof SafetySecurityAdvisoriesRoute
+  SafetyTermsRoute: typeof SafetyTermsRoute
+  SafetyTransparencyRoute: typeof SafetyTransparencyRoute
+  SafetyZeroKnowledgeRoute: typeof SafetyZeroKnowledgeRoute
+  SafetyIndexRoute: typeof SafetyIndexRoute
+}
+
+const SafetyRouteChildren: SafetyRouteChildren = {
+  SafetyArchitectureRoute: SafetyArchitectureRoute,
+  SafetyComplianceRoute: SafetyComplianceRoute,
+  SafetyCryptographyRoute: SafetyCryptographyRoute,
+  SafetyDataDeletionRoute: SafetyDataDeletionRoute,
+  SafetyPrivacyRoute: SafetyPrivacyRoute,
+  SafetySecurityAdvisoriesRoute: SafetySecurityAdvisoriesRoute,
+  SafetyTermsRoute: SafetyTermsRoute,
+  SafetyTransparencyRoute: SafetyTransparencyRoute,
+  SafetyZeroKnowledgeRoute: SafetyZeroKnowledgeRoute,
+  SafetyIndexRoute: SafetyIndexRoute,
+}
+
+const SafetyRouteWithChildren =
+  SafetyRoute._addFileChildren(SafetyRouteChildren)
+
 interface ApiPublicIntegrationsRouteChildren {
   ApiPublicIntegrationsMastodonAvatarRoute: typeof ApiPublicIntegrationsMastodonAvatarRoute
 }
@@ -4282,7 +5247,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   UsernameRoute: UsernameRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
-  AboutRoute: AboutRoute,
+  AboutRoute: AboutRouteWithChildren,
   ApiRoute: ApiRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,
   BatchRoute: BatchRoute,
@@ -4290,6 +5255,7 @@ const rootRouteChildren: RootRouteChildren = {
   ClaimRoute: ClaimRoute,
   ContactRoute: ContactRoute,
   DataDeletionRoute: DataDeletionRoute,
+  DevRoute: DevRouteWithChildren,
   DevelopersRoute: DevelopersRoute,
   EmailTemplatesRoute: EmailTemplatesRoute,
   ExploreRoute: ExploreRoute,
@@ -4297,12 +5263,14 @@ const rootRouteChildren: RootRouteChildren = {
   GoRoute: GoRoute,
   HubRoute: HubRoute,
   IbanQrRoute: IbanQrRoute,
+  InfoRoute: InfoRouteWithChildren,
   LeavingRoute: LeavingRoute,
   ManifestoRoute: ManifestoRoute,
   OnboardingRoute: OnboardingRoute,
   PressRoute: PressRoute,
   PrivacyRoute: PrivacyRoute,
   QrRoute: QrRoute,
+  SafetyRoute: SafetyRouteWithChildren,
   SecurityRoute: SecurityRoute,
   SelfHostingRoute: SelfHostingRoute,
   SignatureRoute: SignatureRoute,
@@ -4332,7 +5300,10 @@ const rootRouteChildren: RootRouteChildren = {
   BookingBookingIdRoute: BookingBookingIdRoute,
   BrandSplatRoute: BrandSplatRoute,
   ClaimTokenRoute: ClaimTokenRoute,
-  DevEmailsRoute: DevEmailsRoute,
+  DeveloperAiMcpRoute: DeveloperAiMcpRoute,
+  DeveloperCredentialsRoute: DeveloperCredentialsRoute,
+  DeveloperIdentityOauthRoute: DeveloperIdentityOauthRoute,
+  DeveloperWebhooksRoute: DeveloperWebhooksRoute,
   ESlugRoute: ESlugRoute,
   EventSlugRoute: EventSlugRoute,
   FIdRoute: FIdRoute,

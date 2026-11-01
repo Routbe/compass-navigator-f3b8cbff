@@ -8,6 +8,76 @@
 @import "@fontsource/instrument-serif/400.css";
 @import "@fontsource/jetbrains-mono/400.css";
 @import "@fontsource/jetbrains-mono/600.css";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-docs-link: oklch(0.79 0.12 166);
+  --color-docs-code: oklch(0.17 0.003 285);
+  --color-docs-info: oklch(0.78 0.10 245);
+  --color-docs-warning: oklch(0.85 0.14 85);
+  --color-docs-danger: oklch(0.78 0.14 20);
+  --color-docs-creator: oklch(0.78 0.15 345);
+  --color-docs-business: oklch(0.35 0.003 285);
+}
+
+.docs-theme {
+  color-scheme: dark;
+  --background: 240 4.35% 4.51%;
+  --foreground: 0 0% 98%;
+  --card: 240 3% 8%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 3% 9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 158 55% 70%;
+  --primary-foreground: 240 4% 5%;
+  --secondary: 240 3% 12%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3% 13%;
+  --muted-foreground: 240 4% 67%;
+  --border: 240 3% 18%;
+  --input: 240 3% 22%;
+  --accent: 240 3% 15%;
+  --accent-foreground: 0 0% 98%;
+  --ring: 158 55% 70%;
+  letter-spacing: 0;
+}
+.docs-header { background: hsl(var(--background) / .94); backdrop-filter: blur(16px); }
+.docs-sidebar { background: hsl(var(--background)); }
+.docs-prose { --tw-prose-invert-body: hsl(240 5% 81%); --tw-prose-invert-headings: hsl(var(--foreground)); --tw-prose-invert-links: var(--color-docs-link); --tw-prose-invert-bold: hsl(var(--foreground)); --tw-prose-invert-code: hsl(var(--foreground)); font-size: 15px; line-height: 1.85; }
+.docs-prose h1 { font-family: var(--font-sans); font-size: 40px; font-weight: 600; line-height: 1.18; letter-spacing: 0; margin-bottom: 24px; overflow-wrap: anywhere; }
+.docs-prose h1 + p { font-size: 18px; line-height: 1.65; color: hsl(var(--muted-foreground)); margin-bottom: 32px; }
+.docs-prose h2 { font-family: var(--font-sans); font-size: 23px; font-weight: 600; letter-spacing: 0; scroll-margin-top: 110px; }
+.docs-prose h3 { font-family: var(--font-sans); font-size: 17px; font-weight: 600; letter-spacing: 0; scroll-margin-top: 110px; }
+.docs-prose a { text-decoration-color: color-mix(in oklab, var(--color-docs-link) 35%, transparent); text-underline-offset: 4px; }
+.docs-prose a:hover { text-decoration-color: var(--color-docs-link); }
+.docs-prose table { display: block; overflow-x: auto; width: 100%; }
+.docs-prose th, .docs-prose td { min-width: 125px; padding: 12px; border-bottom: 1px solid hsl(var(--border)); }
+.docs-prose code { overflow-wrap: anywhere; }
+.docs-callout { background: hsl(var(--card) / .85); backdrop-filter: blur(10px); color: hsl(var(--muted-foreground)); }
+.docs-callout-info > svg { color: var(--color-docs-info); }
+.docs-callout-warning > svg { color: var(--color-docs-warning); }
+.docs-callout-success > svg { color: var(--color-docs-link); }
+.docs-callout-danger > svg { color: var(--color-docs-danger); }
+.docs-code { background: var(--color-docs-code); }
+.docs-code pre { background: transparent !important; margin: 0; padding: 0; }
+.docs-window-dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: hsl(var(--muted-foreground) / .5); }
+.docs-window-dots i:first-child { background: var(--color-docs-danger); }
+.docs-window-dots i:nth-child(2) { background: var(--color-docs-warning); }
+.docs-window-dots i:last-child { background: var(--color-docs-link); }
+.docs-badge-human { color: hsl(var(--foreground)); }
+.docs-badge-verified { color: var(--color-docs-info); }
+.docs-badge-business > span:first-child { padding: 3px; border-radius: 4px; background: var(--color-docs-business); color: hsl(var(--foreground)); }
+.docs-badge-business svg { width: 22px; height: 22px; }
+.docs-steps { counter-reset: docs-step; }
+.docs-step { counter-increment: docs-step; }
+.docs-step::before { content: counter(docs-step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid hsl(var(--border)); border-radius: 50%; color: var(--color-docs-link); background: hsl(var(--card)); font: 12px var(--font-mono); }
+.docs-step:not(:last-child)::after { content: ''; position: absolute; left: 13px; top: 34px; bottom: 6px; width: 1px; background: hsl(var(--border)); }
+.docs-article-link { transition: border-color .15s, background .15s; }
+.docs-article-link:hover { border-color: var(--color-docs-link); background: hsl(var(--card)); }
+.docs-skip { position: fixed; top: -100px; left: 20px; z-index: 60; background: hsl(var(--foreground)); color: hsl(var(--background)); padding: 12px; }
+.docs-skip:focus { top: 10px; }
+@media (max-width: 640px) { .docs-prose h1 { font-size: 32px; } .docs-prose h1 + p { font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) { .docs-theme * { scroll-behavior: auto; transition: none; } }
 
 @custom-variant dark (&:is(.dark *));
 

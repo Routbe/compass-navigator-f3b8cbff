@@ -171,13 +171,15 @@ export async function publicBadgesForHandle(rawHandle: string) {
   try {
     const rows = (await sql`
       select b.slug, b.name, b.description, b.image_url, b.kind, b.motto, b.story,
-             b.issuer_name, b.issuer_url, b.accent_color, u.reason,
+             b.issuer_name, b.issuer_url, b.accent_color, u.reason, u.show_on_name, u.show_in_badges,
              to_json(u.granted_at) as granted_at_iso,
              (select count(*) from public.user_custom_badges x where x.badge_id = b.id)::int as holders
         from public.profiles p
         join public.user_custom_badges u on u.user_id = p.id
         join public.custom_badges b on b.id = u.badge_id
-       where p.username = ${handle}
+        where p.username = ${handle}
+         and u.rejected_at is null and u.revoked_at is null
+         and (u.show_on_name or u.show_in_badges)
          and coalesce(p.is_banned, false) = false
           and coalesce((p.display_prefs ->> 'publicProfile')::boolean, true)
        order by u.sort_order, u.granted_at
@@ -195,6 +197,8 @@ export async function publicBadgesForHandle(rawHandle: string) {
       issuerUrl: str(r["issuer_url"]),
       accentColor: str(r["accent_color"]),
       reason: str(r["reason"]),
+      showOnName: r["show_on_name"] === true,
+      showInBadges: r["show_in_badges"] === true,
       grantedAt: str(r["granted_at_iso"]),
       holders: Number(r["holders"] ?? 0),
     }));

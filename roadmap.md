@@ -1,4 +1,12 @@
 # Repository import
+## MDX knowledge graph and credentials directive
+- [ ] Configure MDX/frontmatter and four-pillar routing, preserving existing URLs.
+- [ ] Build token-based dark docs layout, sidebar, ToC, breadcrumbs, local search stub and previous/next links.
+- [ ] Add MDX callouts, highlighted copyable code, actual badge previews, steps and API endpoints.
+- [ ] Generate the requested article union; write manifesto, badges and OIDC accurately and fully.
+- [ ] Audit session recognition, merging and email webhooks; assess credential hub against existing issuing features without renumbering immutable 0147.
+- [ ] Verify pillar HTTP 200, MDX interactions, mobile/desktop, accessibility and full tests.
+
 - [x] Import source, styles, assets, and dependencies safely.
 - [x] Verify public QR generation, download, and phone navigation.
 - [ ] Original accounts, data, payments, and integrations: blocked by missing original services and credentials.
