@@ -5,9 +5,11 @@
 - [x] Link the existing Neon connection to this project.
 
 ## ROUT hardening handoff
-- [ ] Apply immutable Neon migrations 0146, 0147, 0148 in order after checking live state; verify schema snapshot.
-- [ ] Switch app runtime to least-privilege rout_app through the Neon connector; verify RLS preflight.
-- [ ] Verify email freeze/unfreeze with a disposable account.
-- [ ] Connect and verify existing Scaleway storage.
-- [ ] Verify real passkey/PRF ledger flow.
-- [ ] Resolve remaining accessibility warnings and run existing tests.
+- [x] Apply immutable Neon migrations 0146, 0147, 0148 in one transaction and verify recorded checksums.
+- [ ] Reach zero schema drift: blocked by three overbroad rout_app table grants and whitespace-only function definition difference; no grants/snapshot repair approved.
+- [ ] Switch app runtime to rout_app: blocked by available connection still using neondb_owner; needs a separate rout_app connection.
+- [ ] Verify email freeze/unfreeze: blocked by missing reviewed recovery design, disposable signed-in account and mail configuration.
+- [ ] Connect and verify existing Scaleway storage: requires existing credentials and bucket configuration.
+- [ ] Verify real passkey/PRF ledger flow: requires a real authenticator and disposable signed-in account.
+- [x] Resolve all current jsx-a11y findings; 1,234 tests pass; QR keyboard interaction verified.
+- [ ] Other pre-existing lint findings (10,226) remain outside the accessibility repair scope.
