@@ -13,7 +13,7 @@ import { contextStatements, type DbContext } from "@/lib/db-context";
 /**
  * Request-scoped RLS context. Auth middleware runs handlers inside
  * `withDbContext`, and every query then runs in a transaction that first sets
- * `rout.user_id` / `rout.workspace_id` with `set_config(..., true)` (= SET LOCAL).
+ * `rout.current_user_id` / `rout.workspace_id` with `set_config(..., true)` (= SET LOCAL).
  * Without a context (anonymous, cron) nothing is set, so both read as null.
  */
 const dbContext = new AsyncLocalStorage<DbContext>();
@@ -110,8 +110,8 @@ export async function runBatch(
     if (TRANSACTION_CONTROL.test(statement.query)) throw new Error("interactive_transactions_unsupported: use one atomic PostgreSQL batch");
   }
   const prefix = [
-    { query: RUNTIME_ROLE_GUARD, params: [] },
     ...(opts.withContext === false ? [] : activeContext()),
+    { query: RUNTIME_ROLE_GUARD, params: [] },
   ];
   const json = await post({
     queries: [...prefix, ...input].map(s => ({ query: s.query, params: normaliseParams(s.params) })),

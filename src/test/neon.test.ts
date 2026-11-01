@@ -18,9 +18,9 @@ it("sends authenticated context and role guard in the same atomic batch", async 
   const userId="11111111-1111-4111-8111-111111111111";
   const fetch=vi.fn(async (_url, options) => {
     const body=JSON.parse(options.body);
-    expect(body.queries[0].query).toContain("runtime_role_unsafe");
-    expect(body.queries[1].query).toContain("set_config('rout.current_user_id', $1, true)");
-    expect(body.queries[1].params[0]).toBe(userId);
+    expect(body.queries[0].query).toContain("set_config('rout.current_user_id', $1, true)");
+    expect(body.queries[0].params[0]).toBe(userId);
+    expect(body.queries[1].query).toContain("runtime_role_unsafe");
     return Response.json({results: [{rows:[]},{rows:[]},{rows:[{ok:true}],command:"SELECT",rowCount:1}]});
   });
   vi.stubGlobal("fetch",fetch);
