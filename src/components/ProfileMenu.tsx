@@ -74,7 +74,11 @@ export function ProfileMenu() {
       const fromProvider = meta["avatar_url"] ?? meta["picture"];
       const mastodon = meta["provider_kind"] === "mastodon" ? mastodonAvatarSrc(typeof meta["fediverse_handle"] === "string" ? meta["fediverse_handle"] : null) : null;
       setAvatarUrl(profileImageSrc(data.avatarUrl) ?? mastodon ?? profileImageSrc(typeof fromProvider === "string" ? fromProvider : null));
-    })();
+    })().catch(() => {
+      if (!cancelled) {
+        setFullName(null); setUsername(null); setAvatarUrl(null);
+      }
+    });
     return () => {
       cancelled = true;
     };

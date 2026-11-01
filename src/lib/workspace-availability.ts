@@ -1,7 +1,8 @@
 import type { WorkspaceRole } from "./workspace-rules";
+import type { WorkspaceSummary } from "./workspaces.functions";
 export type WorkspaceContextUnavailable = {
   available: false;
-  workspaces: [];
+  workspaces: WorkspaceSummary[];
   activeWorkspaceId: null;
   activeRole: WorkspaceRole | null;
 };
