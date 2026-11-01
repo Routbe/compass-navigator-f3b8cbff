@@ -21,7 +21,7 @@ afterAll(async () => { await db.close(); });
 async function seed() {
   await db.exec("begin");
   await db.query("insert into public.users(id,email) values($1,'primary@example.test'),($2,'secondary@example.test')", [P, S]);
-  await db.query("insert into public.profiles(id,username,bio) values($1,'primary','primary design'),($2,'secondary','secondary design')", [P, S]);
+  await db.query("update public.profiles set username=case when id=$1 then 'primary' else 'secondary' end,bio=case when id=$1 then 'primary design' else 'secondary design' end where id in ($1,$2)", [P, S]);
   await db.query("insert into public.account_merge_tickets(id,primary_user_id,preview_user_id,pin_hash,token_hash,expires_at) values($1,$2,$3,'ticket','qr',now()+interval '5 minutes')", [T, P, S]);
   await db.query("insert into public.security_codes(user_id,purpose,code_hash,expires_at) values($1,'merge','email-proof',now()+interval '10 minutes')", [S]);
   await db.query("insert into public.links(profile_id,title,url) values($1,'secondary link','https://example.test')", [S]);
