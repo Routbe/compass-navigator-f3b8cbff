@@ -1,5 +1,6 @@
 import { parse } from "yaml";
 import { z } from "zod";
+import sources from "virtual:rout-docs";
 
 export const DOC_CATEGORIES = ["about", "info", "dev", "safety"] as const;
 export type DocCategory = typeof DOC_CATEGORIES[number];
@@ -22,7 +23,6 @@ export function parseDoc(source: string, file: string): DocEntry {
   });
   return { ...meta, path, source, headings };
 }
-const sources = import.meta.glob("/src/content/**/*.mdx", { query: "?raw", import: "default", eager: true }) as Record<string, string>;
 export const docs = Object.entries(sources).map(([file, source]) => parseDoc(source, file));
 export function getDoc(path: string) { return docs.find(d => d.path === path); }
 export function docsInCategory(category: DocCategory) { return docs.filter(d => d.category === category); }

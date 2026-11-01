@@ -4,3 +4,4 @@ declare module "*.mdx" {
   const MDXContent: ComponentType;
   export default MDXContent;
 }
+declare module "virtual:rout-docs" { const sources: Record<string, string>; export default sources; }
