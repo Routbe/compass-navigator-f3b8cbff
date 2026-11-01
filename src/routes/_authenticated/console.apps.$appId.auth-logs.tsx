@@ -15,7 +15,7 @@ import { hintFor } from "@/lib/oauth/debug-hints";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/auth-logs")({
-  head: () => ({ meta: [{ title: "Auth-logs — ROUT Developer Console" }] }),
+  head: () => ({ meta: [{ title: "Auth-logs — ROUT Developer Console" }, { name: "description", content: "Inspecteer ROUT OIDC-loginresultaten en configuratiefouten." }, { property: "og:title", content: "Auth-logs — ROUT Developer Console" }, { property: "og:description", content: "Inspecteer ROUT OIDC-loginresultaten en configuratiefouten." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: AuthLogsPage,
 });
 

@@ -51,16 +51,23 @@ describe("personal account page has no workspace team", () => {
 
 describe("database hardening migrations (snapshot)", () => {
   const snap = JSON.parse(readFileSync(join(ROOT, "db/schema.snapshot.json"), "utf8")) as {
-    tables: { schema: string; name: string; rls: boolean; policies: { name: string }[]; columns: { name: string }[]; constraints: unknown[] }[];
+    tables: { schema: string; name: string; rls: boolean; policies: { name: string; roles: string[] }[]; columns: { name: string }[]; constraints: unknown[] }[];
   };
-  const pub = (n: string) => snap.tables.find((t) => t.schema === "public" && t.name === n)!;
+  const pub = (n: string) => {
+    const table = snap.tables.find((t) => t.schema === "public" && t.name === n);
+    if (!table) throw new Error(`Missing table ${n}`);
+    return table;
+  };
   it("owner and workspace tables get a scope policy", () => {
     for (const n of ["bookings", "user_assets", "workspace_members", "profile_drafts"]) {
       expect(pub(n).policies.map((p) => p.name)).toContain("rout_scope");
     }
   });
-  it("secret tables stay deny-by-default without a policy", () => {
-    for (const n of ["api_keys", "auth_tokens", "psp_credentials", "user_sessions"]) expect(pub(n).policies).toEqual([]);
+  it("secret tables stay deny-by-default for runtime; only the non-login merge executor has a policy", () => {
+    for (const n of ["api_keys", "auth_tokens", "psp_credentials", "user_sessions"]) {
+      expect(pub(n).rls).toBe(true);
+      expect(pub(n).policies.map((p) => p.roles)).toEqual([["rout_merge_executor"]]);
+    }
   });
   it("users link to the Better Auth identity with ON DELETE CASCADE", () => {
     expect(pub("users").columns.map((c) => c.name)).toContain("auth_user_id");

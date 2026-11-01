@@ -15,6 +15,7 @@ const S = "22222222-2222-2222-2222-222222222222";
 const state = vi.hoisted(() => ({
   batches: [] as { query: string; params: unknown[] }[][],
   batchError: null as Error | null,
+  outcome: { ok: true, primaryUserId: "11111111-1111-1111-1111-111111111111" } as Record<string, unknown>,
   sqlWrites: [] as string[],
   failures: 0 as number | Error,
   ticket: null as Record<string, unknown> | null,
@@ -36,6 +37,11 @@ vi.mock("@/lib/neon", () => {
   (sql as unknown as { query: unknown }).query = (q: string) => Promise.resolve().then(() => run(q));
   return {
     sql,
+    runQuery: vi.fn(async (query: string, params: unknown[]) => {
+      state.batches.push([{ query, params }]);
+      if (state.batchError) throw state.batchError;
+      return { rows: [{ result: state.outcome }], rowCount: 1, command: "SELECT" };
+    }),
     runBatch: vi.fn(async (stmts: { query: string; params: unknown[] }[]) => {
       state.batches.push(stmts);
       if (state.batchError) throw state.batchError;
@@ -62,6 +68,7 @@ beforeEach(() => {
   state.batchError = null;
   state.sqlWrites = [];
   state.failures = 0;
+  state.outcome = { ok: true, primaryUserId: P };
   state.ticket = { id: "t1", primary_user_id: P, preview_user_id: S, expires_at: new Date(Date.now() + 60_000).toISOString() };
 });
 
@@ -110,14 +117,13 @@ describe("choice validation", () => {
 });
 
 describe("atomic redeem", () => {
-  it("runs claim, transfer and deletion in a single transaction", async () => {
+  it("delegates the merge and email proof to one PostgreSQL function", async () => {
     const r = await redeemMergeTicket(input);
     expect(r.ok).toBe(true);
     expect(state.batches).toHaveLength(1);
-    const q = state.batches[0]!.map((s) => s.query);
-    expect(q[0]).toMatch(/update public\.account_merge_tickets set used_at = now\(\)/);
-    expect(q[1]).toMatch(/rout_merge_assert/);
-    expect(q.some((x) => x.includes("delete from public.users"))).toBe(true);
+    const statement = state.batches[0]?.[0];
+    expect(statement?.query).toBe("select public.execute_account_merge($1, $2, $3, $4) as result");
+    expect(statement?.params).toEqual(["h:123456", `h:${S}:merge:654321`, "primary", "primary"]);
     // Nothing was written outside the transaction.
     expect(state.sqlWrites.filter((w) => !w.includes("preview_user_id"))).toEqual([]);
   });
@@ -134,10 +140,10 @@ describe("atomic redeem", () => {
     expect(await redeemMergeTicket(input)).toEqual({ ok: false, reason: "invalid_or_expired" });
   });
 
-  it("refuses a ticket previewed by another account", async () => {
-    state.ticket = { ...state.ticket!, preview_user_id: P };
-    expect(await redeemMergeTicket(input)).toEqual({ ok: false, reason: "invalid_or_expired" });
-    expect(state.batches).toHaveLength(0);
+  it("reports a database-rejected email proof without consuming it in TypeScript", async () => {
+    state.outcome = { ok: false, reason: "bad_code" };
+    expect(await redeemMergeTicket(input)).toEqual({ ok: false, reason: "bad_code" });
+    expect(state.sqlWrites).toEqual([]);
   });
 });
 

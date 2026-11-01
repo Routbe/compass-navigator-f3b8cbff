@@ -7,7 +7,7 @@ import { buildPrismaSchema, buildSqlSchema } from "@/lib/oauth/integration-templ
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/schema")({
-  head: () => ({ meta: [{ title: "Schema-templates — ROUT Developer Console" }] }),
+  head: () => ({ meta: [{ title: "Schema-templates — ROUT Developer Console" }, { name: "description", content: "SQL- en Prisma-schema’s voor veilige ROUT-identiteitskoppelingen." }, { property: "og:title", content: "Schema-templates — ROUT Developer Console" }, { property: "og:description", content: "SQL- en Prisma-schema’s voor veilige ROUT-identiteitskoppelingen." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: SchemaPage,
 });
 

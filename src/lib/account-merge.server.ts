@@ -112,7 +112,8 @@ async function summary(userId: string): Promise<MergeAccountSummary> {
 export async function previewMerge(input: { secondaryUserId: string; pin?: string | null; token?: string | null; request?: Request | null }) {
   const found = await resolveTicket(input.secondaryUserId, input.pin ?? null, input.token ?? null);
   if ("error" in found) return { ok: false as const, reason: found.error };
-  const ticket = found.ticket!;
+  const ticket = found.ticket;
+  if (!ticket) return { ok: false as const, reason: "invalid_or_expired" as const };
   // Bind the ticket to the first account that previews it; nobody else can redeem it.
   const bound = (await sql`update public.account_merge_tickets set preview_user_id = ${input.secondaryUserId}
     where id = ${ticket["id"] as string} and used_at is null
@@ -125,62 +126,7 @@ export async function previewMerge(input: { secondaryUserId: string; pin?: strin
   return { ok: true as const, primary, secondary, codeSentTo: sent.sentTo };
 }
 
-// ---------------------------------------------------------------------------
-// Data transfer: one transaction, explicit table allowlist (account-merge-rules.ts)
-// ---------------------------------------------------------------------------
-
-type Stmt = { query: string; params: unknown[] };
-
-/** Better Auth sign-ins: same-provider collisions are archived, never forced into a unique index. */
-async function authStatements(primaryId: string, secondaryId: string): Promise<Stmt[]> {
-  const ids = (await sql`select id, coalesce(auth_user_id::text, user_metadata->>'neon_auth_id') as ba from public.users
-    where id in (${primaryId}, ${secondaryId})`) as Row[];
-  const pBa = (ids.find((r) => r["id"] === primaryId)?.["ba"] as string | null) ?? null;
-  const sBa = (ids.find((r) => r["id"] === secondaryId)?.["ba"] as string | null) ?? null;
-  if (!sBa || sBa === pBa) return [];
-  if (!pBa) {
-    // Primary has no Better Auth user yet: adopt the secondary's, without touching its e-mail.
-    return [
-      { query: `delete from neon_auth.session where "userId"::text = $1`, params: [sBa] },
-      {
-        query: `update public.users set user_metadata = coalesce(user_metadata, '{}'::jsonb) || jsonb_build_object('neon_auth_id', $2::text)
-          where id = $1`,
-        params: [primaryId, sBa],
-      },
-    ];
-  }
-  const collide = (sec: string, prim: string) => `from neon_auth.account s where s."userId"::text = ${sec} and exists (
-      select 1 from neon_auth.account p where p."userId"::text = ${prim} and p."providerId" = s."providerId")`;
-  return [
-    {
-      query: `insert into public.merged_auth_account_archive
-        (primary_user_id, secondary_auth_user_id, provider_id, provider_account_id, original_created_at)
-        select $1, $2, s."providerId", s."accountId", s."createdAt" ${collide("$2", "$3")}`,
-      params: [primaryId, sBa, pBa],
-    },
-    { query: `delete ${collide("$1", "$2")}`, params: [sBa, pBa] },
-    { query: `update neon_auth.account set "userId" = $1::uuid, "updatedAt" = now() where "userId"::text = $2`, params: [pBa, sBa] },
-    { query: `update neon_auth.passkey set "userId" = $1 where "userId"::text = $2`, params: [pBa, sBa] },
-    { query: `delete from neon_auth."twoFactor" where "userId"::text = $1`, params: [sBa] },
-    { query: `delete from neon_auth.session where "userId"::text = $1`, params: [sBa] },
-    { query: `delete from neon_auth."user" where id::text = $1`, params: [sBa] },
-  ];
-}
-
-const PROFILE_FLAGS_SQL = `update public.profiles p
-     set verified = p.verified or s.verified,
-         verified_at = coalesce(p.verified_at, s.verified_at),
-         verified_legal_name = coalesce(p.verified_legal_name, s.verified_legal_name),
-         tier = case when s.tier = 'verified' or p.tier = 'verified' then 'verified' else p.tier end,
-         is_paid = p.is_paid or s.is_paid,
-         is_early_believer = p.is_early_believer or s.is_early_believer,
-         is_business = coalesce(p.is_business, false) or coalesce(s.is_business, false),
-         is_influencer = coalesce(p.is_influencer, false) or coalesce(s.is_influencer, false),
-         updated_at = now()
-    from public.profiles s
-   where p.id = $1 and s.id = $2`;
-
-/** Step C: code + choices → merge, all or nothing. */
+/** Step C: one SQL function locks, verifies, transfers and consumes the proof. */
 export async function redeemMergeTicket(input: {
   secondaryUserId: string;
   pin?: string | null;
@@ -192,73 +138,35 @@ export async function redeemMergeTicket(input: {
   const rules = await import("./account-merge-rules");
   const keepHandle = rules.parseMergeSide(input.keepHandle);
   const keepDesign = rules.parseMergeSide(input.keepDesign);
-  const found = await resolveTicket(input.secondaryUserId, input.pin ?? null, input.token ?? null);
-  if ("error" in found) return { ok: false as const, reason: found.error };
-  const ticket = found.ticket!;
-  if (ticket["preview_user_id"] !== input.secondaryUserId) return { ok: false as const, reason: "invalid_or_expired" as const };
-  const { consumeSecurityCode } = await import("./security-code.server");
-  if (!(await consumeSecurityCode(input.secondaryUserId, "merge", input.code))) {
-    const { hitRateLimit } = await import("./rate-limit-db.server");
-    await hitRateLimit("merge-redeem-fail", input.secondaryUserId, { limit: 5, windowSec: TICKET_TTL_MINUTES * 60 });
-    return { ok: false as const, reason: "bad_code" as const };
+  if (!rules.mergeAttemptAllowed(await countMergeFailures(input.secondaryUserId))) {
+    return { ok: false as const, reason: "rate_limited" as const };
   }
-
-  const ticketId = ticket["id"] as string;
-  const primaryId = ticket["primary_user_id"] as string;
-  const secondaryId = input.secondaryUserId;
-  const design = await import("./design-templates.server");
-  const [pSnap, sSnap] = await Promise.all([design.snapshotDesign(primaryId), design.snapshotDesign(secondaryId)]);
-  const handles = (await sql`select id, username from public.profiles where id in (${primaryId}, ${secondaryId})`) as Row[];
-  const pHandle = (handles.find((h) => h["id"] === primaryId)?.["username"] as string | null) ?? null;
-  const sHandle = (handles.find((h) => h["id"] === secondaryId)?.["username"] as string | null) ?? null;
-
-  const statements: Stmt[] = [
-    // 1. Claim: only this transaction can set used_at = now(); a replay or a parallel run claims nothing and aborts.
-    {
-      query: `update public.account_merge_tickets set used_at = now(), secondary_user_id = $2
-        where id = $3 and primary_user_id = $1 and preview_user_id = $2 and used_at is null and expires_at > now()`,
-      params: [primaryId, secondaryId, ticketId],
-    },
-    rules.assertStatement(
-      `exists (select 1 from public.account_merge_tickets where id = $1 and secondary_user_id = $2 and used_at = now())`,
-      "merge_ticket_not_claimable",
-      [ticketId, secondaryId],
-    ),
-    // 2. Data, by the reviewed allowlist.
-    ...rules.transferStatements(primaryId, secondaryId),
-    ...(await authStatements(primaryId, secondaryId)),
-    { query: PROFILE_FLAGS_SQL, params: [primaryId, secondaryId] },
-  ];
-  // 3. Designs: the one not kept is saved as a template.
-  if (keepDesign === "secondary" && sSnap) {
-    if (pSnap) statements.push(design.templateInsertStatement(primaryId, `Ontwerp van @${pHandle ?? "hoofdaccount"}`, pSnap));
-    statements.push(...design.designWriteStatements(primaryId, sSnap));
-  }
-  if (sSnap) statements.push(design.templateInsertStatement(primaryId, `Ontwerp van @${sHandle ?? "tweede account"}`, sSnap));
-  // 4. Remove the secondary account, then (optionally) take over its handle.
-  statements.push(
-    { query: `delete from public.profiles where id = $1`, params: [secondaryId] },
-    { query: `delete from public.users where id = $1`, params: [secondaryId] },
-  );
-  if (keepHandle === "secondary" && sHandle) {
-    statements.push({ query: `update public.profiles set username = $2, updated_at = now() where id = $1`, params: [primaryId, sHandle] });
-  }
-
-  const { runBatch } = await import("@/lib/neon");
+  const code = (input.code ?? "").replace(/\D/g, "");
+  if (code.length !== 6) return { ok: false as const, reason: "bad_code" as const };
+  const [ticketDigest, codeDigest] = await Promise.all([
+    hashToken((input.pin ?? input.token ?? "").trim()),
+    hashToken(`${input.secondaryUserId}:merge:${code}`),
+  ]);
+  const { runQuery } = await import("@/lib/neon");
   try {
-    await runBatch(statements);
+    // Caller identity comes from authenticated request context, not these inputs.
+    const result = await runQuery(
+      "select public.execute_account_merge($1, $2, $3, $4) as result",
+      [ticketDigest, codeDigest, keepHandle, keepDesign],
+    );
+    const outcome = result.rows[0]?.["result"] as { ok: boolean; reason?: "bad_code"; primaryUserId?: string } | undefined;
+    if (!outcome) throw new Error("merge_result_missing");
+    if (!outcome.ok) {
+      const { hitRateLimit } = await import("./rate-limit-db.server");
+      await hitRateLimit("merge-redeem-fail", input.secondaryUserId, { limit: 5, windowSec: TICKET_TTL_MINUTES * 60 });
+      return { ok: false as const, reason: outcome.reason ?? "bad_code" };
+    }
+    if (!outcome.primaryUserId) throw new Error("merge_result_missing");
+    return { ok: true as const, primaryUserId: outcome.primaryUserId };
   } catch (error) {
     console.error("[merge] rolled back", (error as Error)?.message);
-    const reason = rules.mergeFailureReason(error);
-    return { ok: false as const, reason };
+    return { ok: false as const, reason: rules.mergeFailureReason(error) };
   }
-  try {
-    const { recordSecurityEvent } = await import("./audit-log.server");
-    await recordSecurityEvent({ eventType: "account.merged", userId: primaryId, payload: { ticket_id: ticketId } });
-  } catch (error) {
-    console.error("[merge] audit", error);
-  }
-  return { ok: true as const, primaryUserId: primaryId };
 }
 
 export async function verifyOwnPassword(userId: string, password: string) {

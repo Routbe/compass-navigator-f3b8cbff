@@ -1356,6 +1356,16 @@
           "cmd": "ALL",
           "using": "((user_id)::text = current_setting('rout.current_user_id'::text, true))",
           "check": "((user_id)::text = current_setting('rout.current_user_id'::text, true))"
+        },
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
         }
       ],
       "grants": {
@@ -1490,6 +1500,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
+        {
           "name": "email_changes_owner",
           "permissive": true,
           "roles": [
@@ -1608,7 +1628,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -1849,7 +1880,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -2006,6 +2048,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -2130,7 +2182,18 @@
       ],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -2312,6 +2375,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -2400,7 +2473,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -2545,7 +2629,18 @@
       ],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -2640,6 +2735,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -2754,6 +2859,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -2871,7 +2986,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -2943,6 +3069,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -3018,7 +3154,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -3102,6 +3249,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -3215,6 +3372,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -3298,6 +3465,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -3504,6 +3681,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -3603,6 +3790,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -3787,6 +3984,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -4125,6 +4332,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -4268,7 +4485,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -4659,7 +4887,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {}
     },
     {
@@ -4799,6 +5038,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -5022,6 +5271,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -5186,6 +5445,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -5926,6 +6195,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -6111,6 +6390,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "domain_claims_owner",
           "permissive": true,
           "roles": [
@@ -6231,6 +6520,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -6567,6 +6866,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -6770,7 +7079,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -6844,6 +7164,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -7346,6 +7676,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -7742,6 +8082,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
+        {
           "name": "identity_links_owner",
           "permissive": true,
           "roles": [
@@ -7822,6 +8172,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -7927,6 +8287,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -8069,6 +8439,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -8195,6 +8575,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -8394,7 +8784,18 @@
       ],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -8631,6 +9032,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_archive_due_purge",
           "permissive": true,
           "roles": [
@@ -8814,6 +9225,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -8938,6 +9359,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -9059,6 +9490,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "oauth_access_owner",
           "permissive": true,
@@ -9198,7 +9639,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -9764,7 +10216,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -9968,6 +10431,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -10078,6 +10551,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -10237,6 +10720,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "oauth_refresh_owner",
           "permissive": true,
@@ -10464,7 +10957,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -10586,7 +11090,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -10744,7 +11259,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -11042,6 +11568,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -11133,6 +11669,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -11246,6 +11792,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -11449,6 +12005,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -11518,7 +12084,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -12581,6 +13158,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -12910,7 +13497,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -13058,6 +13656,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -13387,6 +13995,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "reserved_brand_releases_owner",
           "permissive": true,
           "roles": [
@@ -13628,6 +14246,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -13923,7 +14551,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -14012,7 +14651,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -14177,7 +14827,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -14276,6 +14937,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -14544,6 +15215,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -14648,6 +15329,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -14819,6 +15510,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "social_links_owner_delete",
           "permissive": true,
           "roles": [
@@ -14959,6 +15660,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -15161,6 +15872,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -15345,6 +16066,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -15545,6 +16276,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -15650,6 +16391,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -15728,6 +16479,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -15818,6 +16579,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -15942,6 +16713,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -16070,6 +16851,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -16158,6 +16949,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
         {
           "name": "encrypted_ledger_owner",
           "permissive": true,
@@ -16266,6 +17067,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -16389,6 +17200,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -16486,6 +17307,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -16791,6 +17622,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -16887,6 +17728,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
         {
           "name": "ledger_keys_owner",
           "permissive": true,
@@ -17034,6 +17885,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -17156,6 +18017,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -17250,6 +18121,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -17402,6 +18283,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -17481,7 +18372,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -17592,7 +18494,18 @@
       "triggers": [],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -17716,6 +18629,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -17902,6 +18825,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -18067,7 +19000,18 @@
       ],
       "rls": true,
       "forceRls": false,
-      "policies": [],
+      "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        }
+      ],
       "grants": {
         "rout_app": [
           "DELETE",
@@ -18229,6 +19173,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
+        {
           "name": "rout_scope",
           "permissive": true,
           "roles": [
@@ -18342,6 +19296,16 @@
       "forceRls": false,
       "policies": [
         {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
+        {
           "name": "wallet_tx_owner_select",
           "permissive": true,
           "roles": [
@@ -18446,6 +19410,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "SELECT",
+          "using": "true",
+          "check": null
+        },
         {
           "name": "wallets_owner_insert",
           "permissive": true,
@@ -19016,6 +19990,16 @@
       "rls": true,
       "forceRls": false,
       "policies": [
+        {
+          "name": "atomic_merge_executor",
+          "permissive": true,
+          "roles": [
+            "rout_merge_executor"
+          ],
+          "cmd": "ALL",
+          "using": "true",
+          "check": "true"
+        },
         {
           "name": "rout_scope",
           "permissive": true,
@@ -19767,6 +20751,12 @@
     },
     {
       "schema": "public",
+      "name": "execute_account_merge",
+      "args": "p_ticket_digest text, p_code_digest text, p_keep_handle text, p_keep_design text",
+      "def": "CREATE OR REPLACE FUNCTION public.execute_account_merge(p_ticket_digest text, p_code_digest text, p_keep_handle text, p_keep_design text)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\ndeclare\n v_secondary uuid := public.rout_current_user_id();\n v_primary uuid;\n v_ticket public.account_merge_tickets%rowtype;\n v_code public.security_codes%rowtype;\n v_p public.profiles%rowtype;\n v_s public.profiles%rowtype;\n v_p_auth uuid;\n v_s_auth uuid;\n v_p_design jsonb;\n v_s_design jsonb;\nbegin\n if (session_user <> 'rout_app' and current_setting('role',true) <> 'rout_app') or v_secondary is null then\n   raise exception 'merge_caller_forbidden' using errcode='42501';\n end if;\n if p_keep_handle is null or p_keep_design is null or p_keep_handle not in ('primary','secondary') or p_keep_design not in ('primary','secondary') then\n   raise exception 'invalid_merge_choice';\n end if;\n select * into v_ticket from public.account_merge_tickets\n where (pin_hash=p_ticket_digest or token_hash=p_ticket_digest) and used_at is null and expires_at>clock_timestamp()\n order by created_at desc limit 1;\n if not found or v_ticket.preview_user_id is distinct from v_secondary or v_ticket.primary_user_id=v_secondary then\n   raise exception 'merge_ticket_not_claimable';\n end if;\n v_primary:=v_ticket.primary_user_id;\n -- Deterministic locking serializes overlapping/reversed merges.\n perform 1 from public.users where id in (v_primary,v_secondary) order by id for update;\n if (select count(*) from public.users where id in (v_primary,v_secondary) and not is_disabled and account_status='active')<>2 then\n   raise exception 'merge_ticket_not_claimable';\n end if;\n perform 1 from public.profiles where id in (v_primary,v_secondary) order by id for update;\n select * into v_ticket from public.account_merge_tickets where id=v_ticket.id for update;\n if not found or v_ticket.used_at is not null or v_ticket.expires_at<=clock_timestamp() or v_ticket.preview_user_id is distinct from v_secondary then\n   raise exception 'merge_ticket_not_claimable';\n end if;\n select * into v_code from public.security_codes where user_id=v_secondary and purpose='merge' and consumed_at is null\n order by created_at desc limit 1 for update;\n if not found or v_code.attempts>=5 or v_code.expires_at<=clock_timestamp() then\n   return jsonb_build_object('ok',false,'reason','bad_code');\n end if;\n if v_code.code_hash is distinct from p_code_digest then\n   update public.security_codes set attempts=attempts+1 where id=v_code.id;\n   return jsonb_build_object('ok',false,'reason','bad_code');\n end if;\n select * into v_p from public.profiles where id=v_primary;\n if not found then raise exception 'merge_profile_missing'; end if;\n select * into v_s from public.profiles where id=v_secondary;\n if not found then raise exception 'merge_profile_missing'; end if;\n v_p_design:=jsonb_build_object('theme',v_p.theme,'card_style',v_p.card_style,'blocks',v_p.blocks,'display_prefs',v_p.display_prefs,'url_style',v_p.url_style,'bio',v_p.bio,'tagline',v_p.tagline,'avatar_url',v_p.avatar_url);\n v_s_design:=jsonb_build_object('theme',v_s.theme,'card_style',v_s.card_style,'blocks',v_s.blocks,'display_prefs',v_s.display_prefs,'url_style',v_s.url_style,'bio',v_s.bio,'tagline',v_s.tagline,'avatar_url',v_s.avatar_url);\n update public.account_merge_tickets set used_at=transaction_timestamp(),secondary_user_id=v_secondary where id=v_ticket.id;\n update public.security_codes set consumed_at=transaction_timestamp() where id=v_code.id;\n perform public.rout_merge_assert((not exists (select 1 from public.\"account_deletions\" where \"user_id\" = v_secondary)), 'merge_blocked:account_deletions');\n perform public.rout_merge_assert((not exists (select 1 from public.\"account_email_changes\" where \"user_id\" = v_secondary)), 'merge_blocked:account_email_changes');\n perform public.rout_merge_assert((not exists (select 1 from public.\"business_verifications\" where \"user_id\" = v_secondary)), 'merge_blocked:business_verifications');\n perform public.rout_merge_assert((not exists (select 1 from public.\"identity_disclosure_logs\" where \"user_id\" = v_secondary)), 'merge_blocked:identity_disclosure_logs');\n perform public.rout_merge_assert((not exists (select 1 from public.\"identity_links\" where \"user_id\" = v_secondary)), 'merge_blocked:identity_links');\n perform public.rout_merge_assert((not exists (select 1 from public.\"identity_verifications\" where \"user_id\" = v_secondary)), 'merge_blocked:identity_verifications');\n perform public.rout_merge_assert((not exists (select 1 from public.\"psp_credentials\" where \"user_id\" = v_secondary)), 'merge_blocked:psp_credentials');\n perform public.rout_merge_assert((not exists (select 1 from public.\"sepa_review_queue\" where \"user_id\" = v_secondary)), 'merge_blocked:sepa_review_queue');\n perform public.rout_merge_assert((not exists (select 1 from public.\"user_encrypted_audit_logs\" where \"user_id\" = v_secondary)), 'merge_blocked:user_encrypted_audit_logs');\n perform public.rout_merge_assert((not exists (select 1 from public.\"user_ledger_keys\" where \"user_id\" = v_secondary)), 'merge_blocked:user_ledger_keys');\n perform public.rout_merge_assert((not exists (select 1 from public.\"verification_payments\" where \"user_id\" = v_secondary)), 'merge_blocked:verification_payments');\n perform public.rout_merge_assert((not exists (select 1 from public.\"verified_identities\" where \"user_id\" = v_secondary)), 'merge_blocked:verified_identities');\n perform public.rout_merge_assert((not exists (select 1 from public.\"wallet_transactions\" where \"user_id\" = v_secondary)), 'merge_blocked:wallet_transactions');\n perform public.rout_merge_assert((not exists (select 1 from public.\"wallets\" where \"user_id\" = v_secondary)), 'merge_blocked:wallets');\n delete from public.\"alias_sync_jobs\" where \"user_id\" = v_secondary;\n delete from public.\"auth_tokens\" where \"user_id\" = v_secondary;\n delete from public.\"availability_cache\" where \"user_id\" = v_secondary;\n delete from public.\"availability_jobs\" where \"user_id\" = v_secondary;\n delete from public.\"forwarding_confirmation_sends\" where \"user_id\" = v_secondary;\n delete from public.\"identity_verification_sessions\" where \"user_id\" = v_secondary;\n delete from public.\"oauth_access_tokens\" where \"user_id\" = v_secondary;\n delete from public.\"oauth_auth_codes\" where \"user_id\" = v_secondary;\n delete from public.\"oauth_refresh_tokens\" where \"user_id\" = v_secondary;\n delete from public.\"oauth_step_up_challenges\" where \"user_id\" = v_secondary;\n delete from public.\"oauth_step_up_codes\" where \"user_id\" = v_secondary;\n delete from public.\"phone_otp_codes\" where \"user_id\" = v_secondary;\n delete from public.\"profile_drafts\" where \"user_id\" = v_secondary;\n delete from public.\"security_codes\" where \"user_id\" = v_secondary;\n delete from public.\"user_sessions\" where \"user_id\" = v_secondary;\n delete from public.\"admin_permissions\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"admin_permissions\" p where p.\"user_id\" = v_primary and p.permission = s.permission);\n update public.\"admin_permissions\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"alias_profiles\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"alias_profiles\" p where p.\"user_id\" = v_primary);\n update public.\"alias_profiles\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"ambient_weather_locations\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"ambient_weather_locations\" p where p.\"user_id\" = v_primary);\n update public.\"ambient_weather_locations\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"app_email_assignments\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"app_email_assignments\" p where p.\"user_id\" = v_primary and p.client_id = s.client_id);\n update public.\"app_email_assignments\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"approved_handles\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"approved_handles\" p where p.\"user_id\" = v_primary and lower(p.handle) = lower(s.handle));\n update public.\"approved_handles\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"badge_claim_redemptions\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"badge_claim_redemptions\" p where p.\"user_id\" = v_primary and p.link_id = s.link_id);\n update public.\"badge_claim_redemptions\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"booking_event_type_hosts\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"booking_event_type_hosts\" p where p.\"user_id\" = v_primary and p.event_type_id = s.event_type_id);\n update public.\"booking_event_type_hosts\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"booking_event_types\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"booking_event_types\" p where p.\"user_id\" = v_primary and p.slug = s.slug);\n update public.\"booking_event_types\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"bunq_oauth_tokens\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"bunq_oauth_tokens\" p where p.\"user_id\" = v_primary and p.environment = s.environment);\n update public.\"bunq_oauth_tokens\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"nfc_waitlist\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"nfc_waitlist\" p where p.\"user_id\" = v_primary);\n update public.\"nfc_waitlist\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"oauth_consents\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"oauth_consents\" p where p.\"user_id\" = v_primary and p.client_id = s.client_id);\n update public.\"oauth_consents\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"oauth_email_forwarding_rules\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"oauth_email_forwarding_rules\" p where p.\"user_id\" = v_primary and p.client_id = s.client_id);\n update public.\"oauth_email_forwarding_rules\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"pro_waitlist\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"pro_waitlist\" p where p.\"user_id\" = v_primary);\n update public.\"pro_waitlist\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"profile_ingest_tokens\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"profile_ingest_tokens\" p where p.\"user_id\" = v_primary);\n update public.\"profile_ingest_tokens\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"reserved_brand_releases\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"reserved_brand_releases\" p where p.\"user_id\" = v_primary and p.term = s.term);\n update public.\"reserved_brand_releases\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"social_block_settings\" s where s.\"profile_id\" = v_secondary and exists (select 1 from public.\"social_block_settings\" p where p.\"profile_id\" = v_primary and p.platform = s.platform and lower(p.handle) = lower(s.handle));\n update public.\"social_block_settings\" set \"profile_id\" = v_primary where \"profile_id\" = v_secondary;\n delete from public.\"social_follow_links\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"social_follow_links\" p where p.\"user_id\" = v_primary and p.network = s.network and p.remote_actor = s.remote_actor and p.direction = s.direction);\n update public.\"social_follow_links\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"social_links\" s where s.\"profile_id\" = v_secondary and exists (select 1 from public.\"social_links\" p where p.\"profile_id\" = v_primary and p.platform = s.platform);\n update public.\"social_links\" set \"profile_id\" = v_primary where \"profile_id\" = v_secondary;\n delete from public.\"tip_settings\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"tip_settings\" p where p.\"user_id\" = v_primary);\n update public.\"tip_settings\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_badges\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_badges\" p where p.\"user_id\" = v_primary and p.badge_id = s.badge_id);\n update public.\"user_badges\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_birthdates\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_birthdates\" p where p.\"user_id\" = v_primary);\n update public.\"user_birthdates\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_calendar_feeds\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_calendar_feeds\" p where p.\"user_id\" = v_primary);\n update public.\"user_calendar_feeds\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_custom_badges\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_custom_badges\" p where p.\"user_id\" = v_primary and p.badge_id = s.badge_id);\n update public.\"user_custom_badges\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_custom_presence\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_custom_presence\" p where p.\"user_id\" = v_primary);\n update public.\"user_custom_presence\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_feature_blocks\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_feature_blocks\" p where p.\"user_id\" = v_primary and p.feature = s.feature);\n update public.\"user_feature_blocks\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_integration_links\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_integration_links\" p where p.\"user_id\" = v_primary and p.provider = s.provider);\n update public.\"user_integration_links\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_integrations\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_integrations\" p where p.\"user_id\" = v_primary and p.provider = s.provider);\n update public.\"user_integrations\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_music_status\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_music_status\" p where p.\"user_id\" = v_primary);\n update public.\"user_music_status\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_phone_numbers\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_phone_numbers\" p where p.\"user_id\" = v_primary);\n update public.\"user_phone_numbers\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_presence_connections\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_presence_connections\" p where p.\"user_id\" = v_primary and p.provider = s.provider);\n update public.\"user_presence_connections\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_roles\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_roles\" p where p.\"user_id\" = v_primary and p.role = s.role);\n update public.\"user_roles\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"user_snapchat\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"user_snapchat\" p where p.\"user_id\" = v_primary);\n update public.\"user_snapchat\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n delete from public.\"workspace_members\" s where s.\"user_id\" = v_secondary and exists (select 1 from public.\"workspace_members\" p where p.\"user_id\" = v_primary and p.workspace_id = s.workspace_id);\n update public.\"workspace_members\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"analytics_events\" set \"profile_id\" = v_primary where \"profile_id\" = v_secondary;\n update public.\"api_keys\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"availability_overrides\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"availability_rules\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"avatar_objects\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"badge_events\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"booking_requests\" set \"profile_id\" = v_primary where \"profile_id\" = v_secondary;\n update public.\"community_reviews\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"connected_calendars\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"custom_domains\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"domain_claims\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"email_aliases\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"feedback_forms\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"gallery_objects\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"influencer_requests\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"invoice_deliveries\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"links\" set \"profile_id\" = v_primary where \"profile_id\" = v_secondary;\n update public.\"notifications\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"oauth_email_deliveries\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"profile_design_templates\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"profile_events\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"public_activity\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"saved_qrs\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"security_events\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"shared_files\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"subdomain_root_claims\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"tracked_qrs\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"user_assets\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"user_identities\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n update public.\"user_linked_accounts\" set \"user_id\" = v_primary where \"user_id\" = v_secondary;\n\n select coalesce(auth_user_id,nullif(user_metadata->>'neon_auth_id','')::uuid) into v_p_auth from public.users where id=v_primary;\n select coalesce(auth_user_id,nullif(user_metadata->>'neon_auth_id','')::uuid) into v_s_auth from public.users where id=v_secondary;\n -- Release canonical FK before native deletion/adoption (ON DELETE CASCADE).\n update public.users set auth_user_id=null,user_metadata=user_metadata-'neon_auth_id' where id=v_secondary;\n if v_s_auth is not null and v_s_auth is distinct from v_p_auth then\n   delete from neon_auth.session where \"userId\"=v_s_auth;\n   if v_p_auth is null then\n     update public.users set auth_user_id=v_s_auth,user_metadata=coalesce(user_metadata,'{}'::jsonb)||jsonb_build_object('neon_auth_id',v_s_auth::text) where id=v_primary;\n   else\n     insert into public.merged_auth_account_archive(primary_user_id,secondary_auth_user_id,provider_id,provider_account_id,original_created_at)\n     select v_primary,v_s_auth::text,s.\"providerId\",s.\"accountId\",s.\"createdAt\" from neon_auth.account s where s.\"userId\"=v_s_auth and exists(select 1 from neon_auth.account p where p.\"userId\"=v_p_auth and p.\"providerId\"=s.\"providerId\");\n     delete from neon_auth.account s where s.\"userId\"=v_s_auth and exists(select 1 from neon_auth.account p where p.\"userId\"=v_p_auth and p.\"providerId\"=s.\"providerId\");\n     update neon_auth.account set \"userId\"=v_p_auth,\"updatedAt\"=now() where \"userId\"=v_s_auth;\n     update neon_auth.passkey set \"userId\"=v_p_auth::text where \"userId\"=v_s_auth::text;\n     delete from neon_auth.\"twoFactor\" where \"userId\"=v_s_auth::text;\n     delete from neon_auth.\"user\" where id=v_s_auth;\n   end if;\n end if;\n update public.profiles p set verified=p.verified or v_s.verified, verified_at=coalesce(p.verified_at,v_s.verified_at),verified_legal_name=coalesce(p.verified_legal_name,v_s.verified_legal_name),tier=case when v_s.tier='verified' or p.tier='verified' then 'verified' else p.tier end,is_paid=p.is_paid or v_s.is_paid,is_early_believer=p.is_early_believer or v_s.is_early_believer,is_business=p.is_business or v_s.is_business,is_influencer=p.is_influencer or v_s.is_influencer,updated_at=now() where p.id=v_primary;\n if p_keep_design='secondary' then\n   insert into public.profile_design_templates(user_id,name,payload)\n   select v_primary,left('Ontwerp van @'||coalesce(v_p.username,'hoofdaccount'),60),v_p_design\n   where (select count(*) from public.profile_design_templates where user_id=v_primary)<30 and not exists(select 1 from public.profile_design_templates where user_id=v_primary and payload=v_p_design);\n   update public.profiles set theme=v_s.theme,card_style=v_s.card_style,blocks=v_s.blocks,display_prefs=v_s.display_prefs,url_style=v_s.url_style,bio=v_s.bio,tagline=v_s.tagline,avatar_url=v_s.avatar_url,updated_at=now() where id=v_primary;\n   delete from public.profile_drafts where user_id=v_primary and space='verified';\n end if;\n insert into public.profile_design_templates(user_id,name,payload)\n select v_primary,left('Ontwerp van @'||coalesce(v_s.username,'tweede account'),60),v_s_design\n where (select count(*) from public.profile_design_templates where user_id=v_primary)<30 and not exists(select 1 from public.profile_design_templates where user_id=v_primary and payload=v_s_design);\n delete from public.profiles where id=v_secondary;\n delete from public.users where id=v_secondary;\n if p_keep_handle='secondary' and v_s.username is not null then\n   update public.profiles set username=v_s.username,updated_at=now() where id=v_primary;\n end if;\n insert into public.security_events(user_id,kind,message,severity,details)\n values(v_primary,'account.merged','Account merged','info',jsonb_build_object('ticket_id',v_ticket.id));\n return jsonb_build_object('ok',true,'primaryUserId',v_primary);\nend $function$"
+    },
+    {
+      "schema": "public",
       "name": "feedback_form_is_public",
       "args": "f feedback_forms",
       "def": "CREATE OR REPLACE FUNCTION public.feedback_form_is_public(f feedback_forms)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select case f.profile_space\n    when 'alias' then exists (\n      select 1 from public.alias_profiles a join public.profiles p on p.id = a.user_id\n      where a.user_id = f.user_id and a.handle = f.profile_handle and a.enabled\n        and coalesce((a.display_prefs->>'publicProfile')::boolean, true)\n        and not coalesce(p.is_banned,false) and not coalesce(p.is_suspended,false)\n        and coalesce(p.status,'active') not in ('frozen','banned','suspended'))\n    when 'root' then exists (\n      select 1 from public.profiles p where p.id = f.user_id and p.username = f.profile_handle\n        and p.workspace_id is null and coalesce((p.display_prefs->>'publicProfile')::boolean,true)\n        and not coalesce(p.is_banned,false) and not coalesce(p.is_suspended,false)\n        and coalesce(p.status,'active') not in ('frozen','banned','suspended'))\n    when 'workspace' then exists (\n      select 1 from public.workspaces w join public.profiles p on p.workspace_id = w.id\n      where w.id = f.workspace_id and w.slug = f.profile_handle\n        and coalesce((p.display_prefs->>'publicProfile')::boolean,true)\n        and not coalesce(p.is_banned,false) and not coalesce(p.is_suspended,false)\n        and coalesce(p.status,'active') not in ('frozen','banned','suspended'))\n    else false end\n$function$"
@@ -20019,10 +21009,10 @@
     }
   ],
   "schemaGrants": {
-    "public:rout_app": [
+    "auth:rout_app": [
       "USAGE"
     ],
-    "auth:rout_app": [
+    "public:rout_app": [
       "USAGE"
     ]
   }
