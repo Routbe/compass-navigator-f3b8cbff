@@ -15,6 +15,8 @@
 - [ ] Other pre-existing lint findings (10,226) remain outside the accessibility repair scope.
 
 ## Database foundation repair
+- [ ] Move account merge into 0152 PL/pgSQL with database-verified ticket/code, fixed transfer allowlist and offline rollback/RLS tests; apply only after exact SQL confirmation.
+- [ ] Reconcile the new compass-navigator-43 handoff against this checkout without replacing imported source; run full tests, schema/RLS diagnostics and accessibility check after the atomic repair.
 - [x] Remove fake transactions; keep real atomic SQL batches and reject unsupported interactive Better Auth transactions.
 - [ ] Complete Better Auth's gateway-compatible atomic adapter and service/bootstrap paths; current adapter is intentionally fail-closed, not verified working authentication.
 - [x] Guard every runtime batch against owner/BYPASSRLS roles and inject canonical transaction-local context into authenticated descriptor/RPC, middleware and signed-session lookup paths.
