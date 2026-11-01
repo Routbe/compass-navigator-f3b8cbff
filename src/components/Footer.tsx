@@ -39,6 +39,10 @@ const INFRASTRUCTURE = [
 ];
 
 const SUPPORT = [
+  { to: "/about", label: "De missie" },
+  { to: "/info", label: "ROUT gebruiken" },
+  { to: "/dev", label: "Developer Portal" },
+  { to: "/safety", label: "Trust & Safety" },
   { to: "/contact", label: "Contact form" },
   { to: "/sovereignty", label: "Sovereignty" },
   { to: "/privacy", label: "Privacy policy" },

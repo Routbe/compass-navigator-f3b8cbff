@@ -10,6 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Imported application
+- MDX documentation uses build-time bundled local content, validated frontmatter, file-based leaf routes and a shared scoped theme; no runtime filesystem or external search service. Why: SSR/Edge-compatible documentation without visitor tracking.
 - Preserve ROUT source structure and file-based routes; regenerate the route tree rather than copying it, so routing remains compatible with this host.
 - Keep destination-generated Cloud integrations and hosting configuration; never transplant source environment secrets or project metadata.
 - Original Neon/Better Auth and external service modules remain unconfigured until explicitly migrated or securely connected; Cloud enablement alone does not migrate those services.
