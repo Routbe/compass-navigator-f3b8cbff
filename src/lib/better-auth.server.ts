@@ -134,9 +134,9 @@ function gitlabIssuer(): string {
 }
 
 export function createRoutAuth(request?: Request) {
-  // Either transport is fine: DATABASE_URL on Vercel, the Neon connector in Lovable.
+  // Only the reviewed Neon connector is used; DATABASE_URL cannot bypass it.
   if (!hasDatabase()) {
-    console.error("[auth] no database configured: set DATABASE_URL (Vercel) or link the Neon connector.");
+    console.error("[auth] no database configured: link a rout_app Neon connector.");
     throw new Error("DATABASE_URL ontbreekt: geen databaseverbinding ingesteld.");
   }
   const resolved = resolveAuthSecret();
