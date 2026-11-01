@@ -8,16 +8,22 @@ ai_ready: true
 
 # Trust & Safety
 
-Ons beveiligingsmodel. Wat wordt beschermd, en wat niet.
+Beveiliging begint met vertellen wat een systeem wél en niet beschermt.
 
-<Callout type="info" title="Artikel in voorbereiding">
-Deze pagina is een inhoudelijk sjabloon. Details worden pas gepubliceerd nadat de implementatie en relevante voorwaarden zijn gecontroleerd.
-</Callout>
+## Het model
 
-## Over dit onderwerp
+ROUT gebruikt standaard OIDC, gecontroleerde databasetoegang en first-party proxies. Lees [Architectuur](/safety/architecture) voor de grenzen tussen identity, opslag en applicatie.
 
-De volledige handleiding volgt. Dit artikel bevestigt geen beschikbaarheid, certificering of garanties.
+## Versleuteling heeft een bereik
 
-## Verder lezen
+De opt-in ledger gebruikt browserkeys en envelope encryption. Opgeslagen ciphertext is niet hetzelfde als een onzichtbare aanmeldflow. [Cryptografie](/safety/cryptography) en [Transparantie](/safety/transparency) leggen het verschil uit.
 
-Bekijk de andere artikelen in deze pijler.
+<Callout type="info" title="Sleutelverlies">Verlies van een ledgersleutel mag je ROUT-account niet blokkeren. Het kan wel eerder opgeslagen inhoud onleesbaar maken.</Callout>
+
+## Rechten en verantwoordelijkheden
+
+[Privacy](/safety/privacy), [Gebruiksvoorwaarden](/safety/terms) en [Gegevens verwijderen](/safety/data-deletion) zijn afzonderlijke documenten. De juridische sjablonen zijn geen goedgekeurd definitief beleid.
+
+## Geen onbewezen certificering
+
+[Compliance](/safety/compliance) bevat geen algemene GDPR-, EAA- of post-quantumgarantie. Implementatie, operationele processen en onafhankelijke beoordeling blijven nodig.
