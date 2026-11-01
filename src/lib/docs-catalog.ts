@@ -25,7 +25,7 @@ export function parseDoc(source: string, file: string): DocEntry {
 }
 export const docs = Object.entries(sources).map(([file, source]) => parseDoc(source, file));
 export function getDoc(path: string) { return docs.find(d => d.path === path); }
-export function docsInCategory(category: DocCategory) { return docs.filter(d => d.category === category); }
+export function docsInCategory(category: DocCategory) { return docs.filter(d => d.category === category).sort((a, b) => a.path === `/${category}` ? -1 : b.path === `/${category}` ? 1 : 0); }
 export function docHead(path: string) {
   const doc = getDoc(path);
   const title = `${doc?.title ?? "Documentatie"} — ROUT`;

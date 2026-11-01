@@ -46,8 +46,8 @@
 .docs-prose { --tw-prose-invert-body: hsl(240 5% 81%); --tw-prose-invert-headings: hsl(var(--foreground)); --tw-prose-invert-links: var(--color-docs-link); --tw-prose-invert-bold: hsl(var(--foreground)); --tw-prose-invert-code: hsl(var(--foreground)); font-size: 15px; line-height: 1.85; }
 .docs-prose h1 { font-family: var(--font-sans); font-size: 40px; font-weight: 600; line-height: 1.18; letter-spacing: 0; margin-bottom: 24px; overflow-wrap: anywhere; }
 .docs-prose h1 + p { font-size: 18px; line-height: 1.65; color: hsl(var(--muted-foreground)); margin-bottom: 32px; }
-.docs-prose h2 { font-size: 23px; font-weight: 600; letter-spacing: 0; scroll-margin-top: 110px; }
-.docs-prose h3 { font-size: 17px; font-weight: 600; letter-spacing: 0; scroll-margin-top: 110px; }
+.docs-prose h2 { font-family: var(--font-sans); font-size: 23px; font-weight: 600; letter-spacing: 0; scroll-margin-top: 110px; }
+.docs-prose h3 { font-family: var(--font-sans); font-size: 17px; font-weight: 600; letter-spacing: 0; scroll-margin-top: 110px; }
 .docs-prose a { text-decoration-color: color-mix(in oklab, var(--color-docs-link) 35%, transparent); text-underline-offset: 4px; }
 .docs-prose a:hover { text-decoration-color: var(--color-docs-link); }
 .docs-prose table { display: block; overflow-x: auto; width: 100%; }

@@ -19,8 +19,12 @@ export function DocsLayout({ doc, children }: { doc: DocEntry; children: ReactNo
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id);
     }, { rootMargin: "-80px 0px -65% 0px" });
-    for (const heading of doc.headings) { const el = document.getElementById(heading.id); if (el) observer.observe(el); }
-    return () => observer.disconnect();
+    const observe = () => { for (const heading of doc.headings) { const el = document.getElementById(heading.id); if (el) observer.observe(el); } };
+    observe();
+    const mutations = new MutationObserver(observe);
+    const article = document.getElementById("docs-content");
+    if (article) mutations.observe(article, { childList: true, subtree: true });
+    return () => { observer.disconnect(); mutations.disconnect(); };
   }, [doc]);
   return <div className="docs-theme min-h-screen bg-background text-foreground">
     <a href="#docs-content" className="docs-skip">Naar de inhoud</a>
@@ -33,6 +37,7 @@ export function DocsLayout({ doc, children }: { doc: DocEntry; children: ReactNo
     </header>
     <div className="mx-auto grid max-w-[1600px] lg:grid-cols-[250px_minmax(0,1fr)] xl:grid-cols-[250px_minmax(0,1fr)_210px]">
       <aside id="docs-sidebar" className={`${open ? "block" : "hidden"} docs-sidebar border-b border-border px-5 py-7 lg:sticky lg:top-18 lg:block lg:h-[calc(100dvh-4.5rem)] lg:overflow-y-auto lg:border-b-0 lg:border-r lg:px-7`}>
+        <div className="mb-6 md:hidden"><Input value={query} onChange={e => setQuery(e.target.value)} aria-label="Zoek artikelen" placeholder="Zoek documentatie…" />{query && <div className="mt-2 border-b border-border pb-3">{results.length ? results.map(d => <Link key={d.path} to={d.path} className="block py-2 text-sm text-docs-link">{d.title}</Link>) : <p className="py-2 text-xs text-muted-foreground">Geen artikelen gevonden.</p>}</div>}</div>
         <div className="mb-7 text-xs font-medium text-muted-foreground">ROUT DOCUMENTATIE</div>
         <nav aria-label="Documentatiepijlers" className="mb-8 space-y-1">{DOC_CATEGORIES.map(c => <Link key={c} to={`/${c}`} className={`flex items-center gap-3 rounded-md px-3 py-2.5 text-sm ${c === doc.category ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground"}`}><BookOpen className="size-4" aria-hidden />{DOC_LABELS[c]}</Link>)}</nav>
         <p className="mb-3 px-3 text-xs font-semibold text-muted-foreground">{DOC_LABELS[doc.category]}</p>
