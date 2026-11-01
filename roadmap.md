@@ -12,11 +12,13 @@
 - [ ] Connect and verify existing Scaleway storage: requires existing credentials and bucket configuration.
 - [ ] Verify real passkey/PRF ledger flow: requires a real authenticator and disposable signed-in account.
 - [x] Resolve all current jsx-a11y findings; 1,234 tests pass; QR keyboard interaction verified.
-- [ ] Other pre-existing lint findings (10,226) remain outside the accessibility repair scope.
+- [ ] Other pre-existing lint findings (10,396 errors / 86 warnings) remain outside the accessibility repair scope; current jsx-a11y count is zero.
 
 ## Database foundation repair
-- [ ] Move account merge into 0152 PL/pgSQL with database-verified ticket/code, fixed transfer allowlist and offline rollback/RLS tests; apply only after exact SQL confirmation.
-- [ ] Reconcile the new compass-navigator-43 handoff against this checkout without replacing imported source; run full tests, schema/RLS diagnostics and accessibility check after the atomic repair.
+- [x] Prepare 0152 SQL-only account merge with database-verified ticket/email code, fixed transfers, locked designs/native mappings and a non-login executor; nine PGlite tests include late-error rollback and rout_app isolation.
+- [ ] Apply 0152 after 0150/0151: blocked by exact live SQL confirmation and safe rout_app connection; passkey verification remains server-side, live merge/auth not verified.
+- [x] Reconcile the compass-navigator-43 handoff without replacing this checkout: 0146–0148 already recorded, zero jsx-a11y findings, four incomplete leaf metadata declarations repaired; handoff test count differs from this checkout.
+- [ ] Live schema drift verification: blocked by unsafe runtime connection; current schema-check script has an unguarded migration executor and was not used to bypass runtime security.
 - [x] Remove fake transactions; keep real atomic SQL batches and reject unsupported interactive Better Auth transactions.
 - [ ] Complete Better Auth's gateway-compatible atomic adapter and service/bootstrap paths; current adapter is intentionally fail-closed, not verified working authentication.
 - [x] Guard every runtime batch against owner/BYPASSRLS roles and inject canonical transaction-local context into authenticated descriptor/RPC, middleware and signed-session lookup paths.
@@ -25,7 +27,7 @@
 - [ ] Apply 0150/0151 and register verified existing 0149: awaits exact live SQL confirmation; no historical migration rewritten.
 - [x] Diagnose avatar 503 as missing configured storage before upload; add sanitized PUT/network/provider and read-failure logging.
 - [ ] Live Scaleway cache check: credentials/bucket remain unavailable.
-- [x] Full suite: 217 files / 1,240 tests passed; manual TypeScript check exit 0 after host timeout. PGlite proves late-error rollback and context cleanup, not live gateway/auth success.
+- [x] Full suite: 220 files / 1,251 tests passed, including complete migration/snapshot replay; manual TypeScript exit 0. Snapshot regenerated only after PGlite replay. Not the handoff's claimed 1,271 tests or live gateway/auth success.
 - [ ] Authenticated end-to-end verification: blocked by owner connection and unsupported Better Auth adapter; JWKS is temporarily unavailable rather than using unsafe owner access.
 
 ## Preview recovery
