@@ -65,7 +65,7 @@ export function DesignTemplatesPanel({ compact = false }: { compact?: boolean } 
                   setEditing(null);
                   void run(() => rename({ data: { id: t.id, name } }), "Naam aangepast.");
                 }}>
-                  <Input value={editing.name} maxLength={60} autoFocus className="h-9"
+                  <Input value={editing.name} maxLength={60} className="h-9"
                     onChange={(e) => setEditing({ id: t.id, name: e.target.value })} />
                   <Button size="sm" type="submit" variant="ghost" aria-label="Opslaan"><Check className="h-4 w-4" /></Button>
                 </form>

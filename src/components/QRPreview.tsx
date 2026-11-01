@@ -1288,7 +1288,6 @@ export function QRPreview({
                     </a>
                   ) : (
                     <span
-                      tabIndex={0}
                       aria-label={captionValue}
                       className="rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >

@@ -105,7 +105,6 @@ export function NameOnboardingDialog() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Jane Doe"
               autoComplete="name"
-              autoFocus
               maxLength={80}
             />
           </div>

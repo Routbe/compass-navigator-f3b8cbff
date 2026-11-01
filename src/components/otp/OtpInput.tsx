@@ -161,7 +161,6 @@ export function OtpInput({
             maxLength={1}
             value={char}
             disabled={disabled}
-            autoFocus={autoFocus && index === 0}
             aria-invalid={invalid || undefined}
             aria-label={`Digit ${index + 1} of ${length}`}
             onChange={(e) => handleChange(e, index)}

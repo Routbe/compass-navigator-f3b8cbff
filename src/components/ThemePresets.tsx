@@ -257,6 +257,7 @@ export function ThemePresets({ selectedTheme, onThemeChange }: ThemePresetsProps
         key={filter}
         role="radiogroup"
         aria-label="Theme preset"
+        tabIndex={-1}
         ref={group.ref}
         onKeyDown={group.onKeyDown}
         data-testid="theme-carousel"

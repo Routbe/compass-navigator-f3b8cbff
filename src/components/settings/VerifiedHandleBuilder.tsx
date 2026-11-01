@@ -131,7 +131,7 @@ export function VerifiedHandleBuilder({
       </div>
 
       {/* STAP 1 */}
-      <section className="space-y-3" role="radiogroup" aria-label="Stap 1: volgorde en tussennaam">
+      <div className="space-y-3" role="radiogroup" aria-label="Stap 1: volgorde en tussennaam">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Stap 1 · Volgorde &amp; onderdelen
         </p>
@@ -172,10 +172,10 @@ export function VerifiedHandleBuilder({
             ))}
           </OptionRow>
         ) : null}
-      </section>
+      </div>
 
       {/* STAP 2 */}
-      <section className="space-y-3" role="radiogroup" aria-label="Stap 2: voluit of afgekort">
+      <div className="space-y-3" role="radiogroup" aria-label="Stap 2: voluit of afgekort">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Stap 2 · Voluit of afgekort
         </p>
@@ -217,10 +217,10 @@ export function VerifiedHandleBuilder({
             </Choice>
           </OptionRow>
         ) : null}
-      </section>
+      </div>
 
       {/* STAP 3 */}
-      <section className="space-y-3" role="radiogroup" aria-label="Stap 3: scheidingsteken">
+      <div className="space-y-3" role="radiogroup" aria-label="Stap 3: scheidingsteken">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Stap 3 · Scheidingsteken
         </p>
@@ -236,7 +236,7 @@ export function VerifiedHandleBuilder({
             </Choice>
           ))}
         </div>
-      </section>
+      </div>
 
       {/* LIVE PREVIEW */}
       <div className="rounded-xl border border-border bg-background/70 p-4">

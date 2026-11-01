@@ -348,7 +348,6 @@ export function IntegrationVault({ focus }: { focus?: string } = {}) {
                     <div className="flex h-8 items-center rounded-lg border border-border bg-background px-2">
                     {item.mode === "handle" && item.id !== "youtube" && <span className="text-xs text-muted-foreground" aria-hidden>@</span>}
                     <input
-                      autoFocus
                       value={value}
                       onChange={(e) => setValue(e.target.value)}
                       placeholder={item.placeholder}

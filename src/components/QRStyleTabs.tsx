@@ -678,6 +678,7 @@ export function QRStyleTabs({
           <div
             role="radiogroup"
             aria-labelledby="center-logo-label"
+        tabIndex={-1}
             ref={logoGroup.ref}
             onKeyDown={logoGroup.onKeyDown}
             className="flex items-center gap-2 overflow-visible px-1.5 pt-2.5"

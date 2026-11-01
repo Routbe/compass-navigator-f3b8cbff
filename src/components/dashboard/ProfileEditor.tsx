@@ -2038,7 +2038,6 @@ export function ProfileEditor({ variant = "verified", pageMode = "profile", onPa
                   aria-hidden
                 />
                 <Input
-                  autoFocus
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   onPaste={(e) => {

@@ -143,9 +143,9 @@ export function TrustBadgesBar({ className }: { className?: string }) {
                         {inner}
                       </a>
                     ) : (
-                      <span title={badge.tooltip} tabIndex={0} className={cn(PILL, "cursor-help")}>
+                      <button type="button" title={badge.tooltip} className={cn(PILL, "cursor-help")}>
                         {inner}
-                      </span>
+                      </button>
                     )}
                   </TooltipTrigger>
                   <TooltipContent side="top" className="max-w-[16rem] text-xs">

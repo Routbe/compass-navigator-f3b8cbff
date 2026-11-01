@@ -142,7 +142,6 @@ export function FediverseDialog({
         <form onSubmit={submit} className="space-y-2">
           <div className="flex items-center gap-2">
             <Input
-              autoFocus
               value={value}
               onChange={(e) => setValue(e.target.value)}
               placeholder={isBluesky ? "jona.bsky.social" : "mastodon.social"}
