@@ -97,7 +97,7 @@ it("five attempts, expired email proof and unbound preview all fail closed", asy
 it("never moves or destroys a secondary disclosure ledger", async () => {
   try {
     await seed();
-    await db.query("insert into identity_disclosure_logs(user_id,client_id,disclosed_scopes) values($1,'test-client',array['openid'])", [S]);
+    await db.query("insert into identity_disclosure_logs(user_id,client_id,disclosed_scopes,ip_hash) values($1,'test-client',array['openid'],'test-ip-hash')", [S]);
     await caller(S);
     await expect(merge()).rejects.toThrow("merge_blocked:identity_disclosure_logs");
   } finally { await db.exec("rollback"); }
