@@ -321,6 +321,7 @@ export function ColorPicker({
         <div
           role="radiogroup"
           aria-labelledby="fg-swatch-label"
+          tabIndex={-1}
           ref={fgGroup.ref}
           onKeyDown={fgGroup.onKeyDown}
           className="flex items-center gap-1 flex-wrap sm:flex-nowrap sm:justify-between w-full overflow-visible pt-2"
@@ -361,6 +362,7 @@ export function ColorPicker({
         <div
           role="radiogroup"
           aria-labelledby="bg-swatch-label"
+          tabIndex={-1}
           ref={bgGroup.ref}
           onKeyDown={bgGroup.onKeyDown}
           className="flex items-center gap-1 flex-wrap sm:flex-nowrap sm:justify-between w-full overflow-visible pt-2"

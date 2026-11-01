@@ -156,7 +156,7 @@ function NewWorkspaceWizard() {
             </div>
             <label className="block space-y-1.5">
               <span className="text-sm font-medium">Naam van de workspace</span>
-              <Input autoFocus value={d.name} maxLength={80} placeholder="Acme Corp" onChange={(e) => setD({ ...d, name: e.target.value })} />
+              <Input value={d.name} maxLength={80} placeholder="Acme Corp" onChange={(e) => setD({ ...d, name: e.target.value })} />
             </label>
             <label className="block space-y-1.5">
               <span className="text-sm font-medium">Korte omschrijving <span className="text-muted-foreground">(optioneel)</span></span>

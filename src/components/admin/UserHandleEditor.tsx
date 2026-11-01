@@ -185,7 +185,6 @@ export function UserHandleEditor({
               <Input
                 id="admin-handle-input"
                 value={value}
-                autoFocus
                 onChange={(e) => setValue(e.target.value)}
                 placeholder={open === "alias" ? "jona50" : "jan.jansen"}
               />

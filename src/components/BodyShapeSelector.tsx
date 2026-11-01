@@ -193,6 +193,7 @@ export function PatternPresetRow({
         data-testid="pattern-preset-row"
         role="radiogroup"
         aria-label="QR pattern"
+        tabIndex={-1}
         ref={group.ref}
         onKeyDown={group.onKeyDown}
         /* Mobile: swipeable row. Desktop: balanced 2 x 4 grid. */

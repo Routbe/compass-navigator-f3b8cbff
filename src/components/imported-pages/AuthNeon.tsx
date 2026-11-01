@@ -471,7 +471,6 @@ export default function AuthNeon({ initialMode = "magic" }: { initialMode?: Mode
                 onChange={(e) => setTotp(e.target.value.replace(/\D/g, "").slice(0, 6))}
                 inputMode="numeric"
                 autoComplete="one-time-code"
-                autoFocus
                 aria-label={t("auth.ui.code.label")}
                 className="h-11 w-full rounded-xl border border-input bg-background text-center font-mono tracking-[0.4em]"
               />
@@ -515,7 +514,6 @@ export default function AuthNeon({ initialMode = "magic" }: { initialMode?: Mode
                 onComplete={submitCode}
                 disabled={otpBusy}
                 invalid={otpInvalid}
-                autoFocus
                 ariaLabel={t("auth.ui.code.label")}
               />
               {otpBusy ? <Loader2 className="mx-auto h-4 w-4 animate-spin text-muted-foreground" aria-hidden /> : null}
