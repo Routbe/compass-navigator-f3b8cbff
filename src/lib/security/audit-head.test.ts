@@ -18,6 +18,14 @@ it("protects the retained audit head, detects removed tail, and rolls head updat
     await db.query("insert into identity_disclosure_logs(user_id,client_id,disclosed_scopes) values($1,'a',array['openid'])",[U]);
     const first=(await db.query<{latest_audit_hash:string}>("select latest_audit_hash from users")).rows[0]?.latest_audit_hash;
     expect(first).toMatch(/^[a-f0-9]{64}$/);
+    await db.transaction(async tx => {
+      await tx.exec("set local role rout_app");
+      await tx.query("select set_config('rout.current_user_id',$1,true)",[U]);
+      expect((await tx.query<{uid:string}>("select public.rout_current_user_id() as uid")).rows[0]?.uid).toBe(U);
+      await expect(tx.query("update users set latest_audit_hash=$1",["f".repeat(64)])).rejects.toThrow("trigger-managed");
+      // The rejected statement aborts this transaction; leave rollback to PGlite.
+      throw new Error("rollback protected-head attempt");
+    }).catch(error => { expect(error.message).toBe("rollback protected-head attempt"); });
     await db.exec("begin");
     await db.query("insert into identity_disclosure_logs(user_id,client_id,disclosed_scopes) values($1,'b',array['openid'])",[U]);
     await db.exec("rollback");

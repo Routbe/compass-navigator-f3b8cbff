@@ -6,7 +6,7 @@
 
 ## ROUT hardening handoff
 - [x] Apply immutable Neon migrations 0146, 0147, 0148 in one transaction and verify recorded checksums.
-- [ ] Reach zero schema drift: blocked by three overbroad rout_app table grants and whitespace-only function definition difference; no grants/snapshot repair approved.
+- [ ] Reach zero live schema drift: 0151 repair prepared and offline replay passed; live execution awaits exact SQL confirmation.
 - [ ] Switch app runtime to rout_app: blocked by available connection still using neondb_owner; needs a separate rout_app connection.
 - [ ] Verify email freeze/unfreeze: blocked by missing reviewed recovery design, disposable signed-in account and mail configuration.
 - [ ] Connect and verify existing Scaleway storage: requires existing credentials and bucket configuration.
@@ -15,9 +15,12 @@
 - [ ] Other pre-existing lint findings (10,226) remain outside the accessibility repair scope.
 
 ## Database foundation repair
-- [ ] Replace fake Better Auth transactions with a supported, truly atomic execution path; native callback transactions cannot run through the mandatory stateless Neon gateway.
-- [ ] Enforce least-privilege runtime identity and transaction-local authenticated context across query/RPC paths.
-- [ ] Add forward migration 0150 with a protected audit head and truncation verification/tests after confirming the actual user/log schema.
-- [ ] Reconcile missing 0149 registration and create immutable 0151 grant/function repair after PGlite replay and explicit statement confirmation.
-- [ ] Diagnose Scaleway avatar failures with safe storage error logging; live storage verification requires configured credentials.
-- [ ] Run full tests and rollback/context checks; TypeScript validation is managed by the host rather than a manual typecheck.
+- [x] Remove fake transactions; keep real atomic SQL batches and reject unsupported interactive Better Auth transactions.
+- [ ] Complete Better Auth's gateway-compatible atomic adapter and service/bootstrap paths; current adapter is intentionally fail-closed, not verified working authentication.
+- [x] Guard every runtime batch against owner/BYPASSRLS roles and inject canonical transaction-local context into authenticated descriptor/RPC, middleware and signed-session lookup paths.
+- [ ] Link actual rout_app connection: the latest selection still returned neondb_owner; unsafe runtime requests are blocked.
+- [x] Prepare 0150 protected user audit head, AFTER INSERT advancement, one-snapshot verification and rollback/truncation tests; offline replay passed.
+- [ ] Apply 0150/0151 and register verified existing 0149: awaits exact live SQL confirmation; no historical migration rewritten.
+- [x] Diagnose avatar 503 as missing configured storage before upload; add sanitized PUT/network/provider and read-failure logging.
+- [ ] Live Scaleway cache check: credentials/bucket remain unavailable.
+- [ ] Final full tests and TypeScript check after repairs; local rollback/context evidence already passed.
