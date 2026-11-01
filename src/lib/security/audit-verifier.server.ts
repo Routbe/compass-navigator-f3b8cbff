@@ -10,7 +10,9 @@ export async function verifyUserDisclosures(userId: string) {
     order by disclosed_at, id limit 10001) l) as entries
     from public.users u where u.id=${userId}`;
   const head = snapshot[0]?.latest_audit_hash;
-  const raw: Record<string, unknown>[] = snapshot[0]?.entries ?? [];
+  const value = snapshot[0]?.entries;
+  if (!Array.isArray(value)) return { verified: false, reason: "invalid_snapshot", rows: [], merkleRoot: null };
+  const raw = value as Record<string, unknown>[];
   if (raw.length > 10000) return { verified: false, reason: "verification_limit", rows: [], merkleRoot: null };
   const entries: DisclosureEntry[] = raw.map((r) => ({ id: String(r["id"]), userId: String(r["user_id"]), clientId: String(r["client_id"]),
     scopes: r["disclosed_scopes"] as string[], timestamp: String(r["timestamp"]), previousHash: String(r["previous_hash"]), entryHash: String(r["entry_hash"]) }));
@@ -18,6 +20,6 @@ export async function verifyUserDisclosures(userId: string) {
     return { verified: false, reason: entries.length ? "missing_head" : "empty", rows: [], merkleRoot: null };
   }
   const result = await verifyDisclosureChain(entries, head);
-  return { verified: result.verified && entries.length > 0, reason: entries.length ? result.verified ? null : "broken_chain" : "empty", merkleRoot: entries.length ? await merkleRoot(entries.map((r) => r.entryHash)) : null,
+  return { verified: result.verified && entries.length > 0, reason: !entries.length ? "truncated_chain" : result.verified ? null : "broken_chain", merkleRoot: entries.length ? await merkleRoot(entries.map((r) => r.entryHash)) : null,
     rows: entries.slice(-50).reverse().map(({ id, clientId, scopes, timestamp }) => ({ id, clientId, scopes, timestamp })) };
 }

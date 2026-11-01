@@ -21,12 +21,12 @@ it("protects the retained audit head, detects removed tail, and rolls head updat
     await db.exec("begin");
     await db.query("insert into identity_disclosure_logs(user_id,client_id,disclosed_scopes) values($1,'b',array['openid'])",[U]);
     await db.exec("rollback");
-    expect((await db.query("select latest_audit_hash from users")).rows[0]?.latest_audit_hash).toBe(first);
+    expect((await db.query<{latest_audit_hash:string}>("select latest_audit_hash from users")).rows[0]?.latest_audit_hash).toBe(first);
     await db.query("insert into identity_disclosure_logs(user_id,client_id,disclosed_scopes) values($1,'b',array['openid'])",[U]);
-    const retained=(await db.query("select latest_audit_hash from users")).rows[0]?.latest_audit_hash;
+    const retained=(await db.query<{latest_audit_hash:string}>("select latest_audit_hash from users")).rows[0]?.latest_audit_hash;
     expect(retained).not.toBe(first);
     await db.exec("delete from identity_disclosure_logs where client_id='b'");
-    expect((await db.query("select entry_hash from identity_disclosure_logs")).rows[0]?.entry_hash).not.toBe(retained);
+    expect((await db.query<{entry_hash:string}>("select entry_hash from identity_disclosure_logs")).rows[0]?.entry_hash).not.toBe(retained);
     await expect(db.query("update users set latest_audit_hash=$1",[first])).rejects.toThrow("trigger-managed");
     await db.query("delete from users where id=$1",[U]);
     expect((await db.query("select * from identity_disclosure_logs")).rows).toHaveLength(0);
