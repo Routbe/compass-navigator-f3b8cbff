@@ -27,6 +27,6 @@
 - [ ] Authenticated end-to-end verification: blocked by owner connection and unsupported Better Auth adapter; JWKS is temporarily unavailable rather than using unsafe owner access.
 
 ## Preview recovery
-- [ ] Handle workspace session/database unavailability without a blank screen or pretending personal scope is authorized.
-- [ ] Serve a first-party avatar placeholder when private image cache storage is unavailable; never bypass the privacy proxy.
-- [ ] Test unavailable workspace/image responses and verify both previously failing preview requests.
+- [x] Handle workspace session/database unavailability with an explicit unavailable response; disable scope actions and downstream data loads.
+- [x] Serve a non-cacheable first-party avatar placeholder when private image cache storage is unavailable; never bypass the privacy proxy.
+- [x] Both reported requests verified through browser: image 200 placeholder, workspace unavailable/no memberships/no role, zero page errors. Twelve relevant tests pass and TypeScript exit 0; signed-in flows remain blocked by prior connection/adapter issues.

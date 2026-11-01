@@ -22,3 +22,4 @@
 - Enforce jsx-a11y rules with the existing form controls recognized, so false positives do not hide genuine keyboard and ARIA issues.
 - Runtime Neon queries use atomic gateway batches with a database role guard; interactive pool transactions are rejected because stateless requests cannot share a session.
 - Disclosure audit heads are trigger-managed and read with rows in one snapshot; this detects tail deletion within the database permission boundary, not owner-level rollback or tampering.
+- Workspace context reads verify the session inside the handler and return explicit unavailability on failure; image cache failures use a non-cacheable first-party placeholder, never remote redirects or weakened database access.
