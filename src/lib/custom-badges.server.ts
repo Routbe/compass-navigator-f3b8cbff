@@ -171,7 +171,7 @@ export async function publicBadgesForHandle(rawHandle: string) {
   try {
     const rows = (await sql`
       select b.slug, b.name, b.description, b.image_url, b.kind, b.motto, b.story,
-             b.issuer_name, b.issuer_url, b.accent_color, u.reason,
+             b.issuer_name, b.issuer_url, b.accent_color, u.reason, u.show_on_name, u.show_in_badges,
              to_json(u.granted_at) as granted_at_iso,
              (select count(*) from public.user_custom_badges x where x.badge_id = b.id)::int as holders
         from public.profiles p
@@ -197,6 +197,8 @@ export async function publicBadgesForHandle(rawHandle: string) {
       issuerUrl: str(r["issuer_url"]),
       accentColor: str(r["accent_color"]),
       reason: str(r["reason"]),
+      showOnName: r["show_on_name"] === true,
+      showInBadges: r["show_in_badges"] === true,
       grantedAt: str(r["granted_at_iso"]),
       holders: Number(r["holders"] ?? 0),
     }));

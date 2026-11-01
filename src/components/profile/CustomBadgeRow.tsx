@@ -40,7 +40,8 @@ export function ProfilePassport({ handle, theme, compact = false }: { handle: st
       alive = false;
     };
   }, [handle, load]);
-  if (items.length === 0) return null;
+  const displayed = items.filter(item => compact ? item.showOnName : item.showInBadges);
+  if (displayed.length === 0) return null;
   const since = formatDate(open?.grantedAt ?? null);
   return (
     <>
@@ -50,7 +51,7 @@ export function ProfilePassport({ handle, theme, compact = false }: { handle: st
           <span className={`text-xs ${theme.muted}`}>{items.length} {items.length === 1 ? t("profile.stamp") : t("profile.stamps")}</span>
         </header>}
         <ul className={compact ? "flex flex-wrap items-center gap-1" : "grid grid-cols-3 gap-3 sm:grid-cols-4"}>
-          {items.map((b, i) => (
+          {displayed.map((b, i) => (
             <li key={b.slug}>
               <Button variant="ghost"
                 type="button"

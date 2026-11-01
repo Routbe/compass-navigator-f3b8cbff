@@ -45,6 +45,8 @@ export const MERGE_TABLES: Readonly<Record<string, MergeTableRule>> = {
   user_ledger_keys: r("skip"),
   user_encrypted_audit_logs: r("skip"),
   account_email_changes: r("skip"),
+  app_issued_credentials: r("skip"),
+  user_connected_apps_visibility: r("skip"),
   // Per-login / short-lived rows.
   user_sessions: r("drop"),
   security_codes: r("drop"),
