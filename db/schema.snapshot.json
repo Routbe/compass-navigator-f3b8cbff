@@ -1354,8 +1354,8 @@
             "rout_app"
           ],
           "cmd": "ALL",
-          "using": "((user_id)::text = current_setting('rout.user_id'::text, true))",
-          "check": "((user_id)::text = current_setting('rout.user_id'::text, true))"
+          "using": "((user_id)::text = current_setting('rout.current_user_id'::text, true))",
+          "check": "((user_id)::text = current_setting('rout.current_user_id'::text, true))"
         }
       ],
       "grants": {
@@ -6117,8 +6117,8 @@
             "rout_app"
           ],
           "cmd": "ALL",
-          "using": "((user_id)::text = current_setting('rout.user_id'::text, true))",
-          "check": "((user_id)::text = current_setting('rout.user_id'::text, true))"
+          "using": "((user_id)::text = current_setting('rout.current_user_id'::text, true))",
+          "check": "((user_id)::text = current_setting('rout.current_user_id'::text, true))"
         }
       ],
       "grants": {
@@ -7339,6 +7339,7 @@
       ],
       "triggers": [
         "CREATE TRIGGER disclosure_chain_insert BEFORE INSERT ON public.identity_disclosure_logs FOR EACH ROW EXECUTE FUNCTION disclosure_chain_insert()",
+        "CREATE TRIGGER disclosure_head_advance AFTER INSERT ON public.identity_disclosure_logs FOR EACH ROW EXECUTE FUNCTION disclosure_head_advance()",
         "CREATE TRIGGER disclosure_no_rewrite BEFORE UPDATE ON public.identity_disclosure_logs FOR EACH ROW EXECUTE FUNCTION disclosure_no_rewrite()"
       ],
       "rls": true,
@@ -9065,8 +9066,8 @@
             "rout_app"
           ],
           "cmd": "ALL",
-          "using": "((user_id)::text = current_setting('rout.user_id'::text, true))",
-          "check": "((user_id)::text = current_setting('rout.user_id'::text, true))"
+          "using": "((user_id)::text = current_setting('rout.current_user_id'::text, true))",
+          "check": "((user_id)::text = current_setting('rout.current_user_id'::text, true))"
         }
       ],
       "grants": {
@@ -10243,8 +10244,8 @@
             "rout_app"
           ],
           "cmd": "ALL",
-          "using": "((user_id)::text = current_setting('rout.user_id'::text, true))",
-          "check": "((user_id)::text = current_setting('rout.user_id'::text, true))"
+          "using": "((user_id)::text = current_setting('rout.current_user_id'::text, true))",
+          "check": "((user_id)::text = current_setting('rout.current_user_id'::text, true))"
         }
       ],
       "grants": {
@@ -13392,7 +13393,7 @@
             "rout_app"
           ],
           "cmd": "SELECT",
-          "using": "((user_id)::text = current_setting('rout.user_id'::text, true))",
+          "using": "((user_id)::text = current_setting('rout.current_user_id'::text, true))",
           "check": null
         }
       ],
@@ -17850,6 +17851,14 @@
           "default": null,
           "identity": null,
           "generated": null
+        },
+        {
+          "name": "latest_audit_hash",
+          "type": "text",
+          "notNull": false,
+          "default": null,
+          "identity": null,
+          "generated": null
         }
       ],
       "constraints": [
@@ -17862,6 +17871,11 @@
           "name": "users_auth_user_id_fkey",
           "kind": "f",
           "def": "FOREIGN KEY (auth_user_id) REFERENCES neon_auth.\"user\"(id) ON DELETE CASCADE"
+        },
+        {
+          "name": "users_latest_audit_hash_check",
+          "kind": "c",
+          "def": "CHECK (((latest_audit_hash IS NULL) OR (latest_audit_hash ~ '^[0-9a-f]{64}$'::text)))"
         },
         {
           "name": "users_migrated_to_workspace_id_fkey",
@@ -17880,6 +17894,7 @@
         "CREATE UNIQUE INDEX users_email_normalized_key ON public.users USING btree (email_normalized)"
       ],
       "triggers": [
+        "CREATE TRIGGER disclosure_head_protect BEFORE INSERT OR UPDATE OF latest_audit_hash ON public.users FOR EACH ROW EXECUTE FUNCTION disclosure_head_protect()",
         "CREATE TRIGGER on_user_created AFTER INSERT ON public.users FOR EACH ROW EXECUTE FUNCTION handle_new_user()",
         "CREATE TRIGGER reserve_recovery_email BEFORE INSERT OR UPDATE OF email ON public.users FOR EACH ROW EXECUTE FUNCTION reserve_recovery_email()"
       ],
@@ -19700,13 +19715,25 @@
       "schema": "public",
       "name": "disclosure_chain_insert",
       "args": "",
-      "def": "CREATE OR REPLACE FUNCTION public.disclosure_chain_insert()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\ndeclare prior_time timestamptz;\nbegin\n  -- Serialize all writes for this owner; a concurrent writer cannot fork the chain.\n  perform pg_advisory_xact_lock(hashtextextended(new.user_id::text, 146));\n  select entry_hash,disclosed_at into new.previous_hash,prior_time from public.identity_disclosure_logs\n    where user_id=new.user_id order by disclosed_at desc,id desc limit 1;\n  new.previous_hash := coalesce(new.previous_hash,repeat('0',64));\n  new.disclosed_at := greatest(date_trunc('milliseconds',clock_timestamp()), coalesce(prior_time + interval '1 millisecond', '-infinity'::timestamptz));\n  new.entry_hash := public.disclosure_hash(new.previous_hash,new.user_id,new.client_id,new.disclosed_scopes,new.disclosed_at);\n  return new;\nend $function$"
+      "def": "CREATE OR REPLACE FUNCTION public.disclosure_chain_insert()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\ndeclare prior_time timestamptz;\nbegin\n  perform pg_advisory_xact_lock(hashtextextended(new.user_id::text,146));\n  select u.latest_audit_hash into new.previous_hash from public.users u where u.id=new.user_id;\n  select l.disclosed_at into prior_time from public.identity_disclosure_logs l\n    where l.user_id=new.user_id order by l.disclosed_at desc,l.id desc limit 1;\n  new.previous_hash := coalesce(new.previous_hash,repeat('0',64));\n  new.disclosed_at := greatest(date_trunc('milliseconds',clock_timestamp()),coalesce(prior_time + interval '1 millisecond','-infinity'::timestamptz));\n  new.entry_hash := public.disclosure_hash(new.previous_hash,new.user_id,new.client_id,new.disclosed_scopes,new.disclosed_at);\n  return new;\nend $function$"
     },
     {
       "schema": "public",
       "name": "disclosure_hash",
       "args": "prev text, uid uuid, cid text, scopes text[], ts timestamp with time zone",
       "def": "CREATE OR REPLACE FUNCTION public.disclosure_hash(prev text, uid uuid, cid text, scopes text[], ts timestamp with time zone)\n RETURNS text\n LANGUAGE plpgsql\n IMMUTABLE\nAS $function$\ndeclare s text; input text := ''; fields text[];\nbegin\n  fields := array[prev, uid::text, cid] || scopes || array[to_char(ts at time zone 'UTC', 'YYYY-MM-DD\"T\"HH24:MI:SS.MS\"Z\"')];\n  foreach s in array fields loop input := input || octet_length(s)::text || ':' || s; end loop;\n  return encode(sha256(convert_to(input, 'UTF8')), 'hex');\nend $function$"
+    },
+    {
+      "schema": "public",
+      "name": "disclosure_head_advance",
+      "args": "",
+      "def": "CREATE OR REPLACE FUNCTION public.disclosure_head_advance()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nbegin\n  update public.users set latest_audit_hash=new.entry_hash where id=new.user_id;\n  return new;\nend $function$"
+    },
+    {
+      "schema": "public",
+      "name": "disclosure_head_protect",
+      "args": "",
+      "def": "CREATE OR REPLACE FUNCTION public.disclosure_head_protect()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO 'pg_catalog'\nAS $function$\nbegin\n  if (tg_op='INSERT' and new.latest_audit_hash is not null) or\n     (tg_op='UPDATE' and new.latest_audit_hash is distinct from old.latest_audit_hash and pg_trigger_depth()<2) then\n    raise exception 'audit head is trigger-managed' using errcode='42501';\n  end if;\n  return new;\nend $function$"
     },
     {
       "schema": "public",
@@ -19880,7 +19907,7 @@
       "schema": "public",
       "name": "rout_current_user_id",
       "args": "",
-      "def": "CREATE OR REPLACE FUNCTION public.rout_current_user_id()\n RETURNS uuid\n LANGUAGE sql\n STABLE\nAS $function$ select nullif(current_setting('rout.user_id', true), '')::uuid $function$"
+      "def": "CREATE OR REPLACE FUNCTION public.rout_current_user_id()\n RETURNS uuid\n LANGUAGE sql\n STABLE\nAS $function$ select nullif(current_setting('rout.current_user_id',true),'')::uuid $function$"
     },
     {
       "schema": "public",

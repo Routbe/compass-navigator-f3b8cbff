@@ -1852,6 +1852,7 @@ export interface PublicUsersRow {
   "sunset_at": string | Date | null;
   "migrated_to_workspace_id": string | null;
   "auth_user_id": string | null;
+  "latest_audit_hash": string | null;
 }
 
 export interface PublicVerificationPaymentsRow {
