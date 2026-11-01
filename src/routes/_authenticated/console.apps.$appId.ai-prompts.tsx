@@ -9,7 +9,7 @@ import { buildAiPrompt, buildBadgePrompt, buildHandleSyncPrompt, type AiTool, ty
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/console/apps/$appId/ai-prompts")({
-  head: () => ({ meta: [{ title: "AI Integration Prompts — ROUT Developer Console" }] }),
+  head: () => ({ meta: [{ title: "AI Integration Prompts — ROUT Developer Console" }, { name: "description", content: "Integratieprompts voor ROUT OIDC, pairwise identiteit en geverifieerde claims." }, { property: "og:title", content: "AI Integration Prompts — ROUT Developer Console" }, { property: "og:description", content: "Integratieprompts voor ROUT OIDC, pairwise identiteit en geverifieerde claims." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: AiPromptsPage,
 });
 

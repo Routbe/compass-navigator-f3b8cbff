@@ -52,14 +52,14 @@ it("a late SQL constraint error rolls back ticket, email proof, links and accoun
     await seed();
     await db.exec(`create function public.merge_failure_probe() returns trigger language plpgsql as $$ begin raise exception 'forced_late_failure'; end $$;
       create trigger merge_failure_probe before delete on public.users for each row execute function public.merge_failure_probe();`);
+    await db.exec("savepoint before_merge");
     await caller(S);
     await expect(merge()).rejects.toThrow("forced_late_failure");
-    await db.exec("rollback");
-    // The entire transaction including fixtures was rolled back, not just the last statement.
-    expect((await db.query("select id from users where id in ($1,$2)", [P, S])).rows).toHaveLength(0);
-    expect((await db.query("select id from account_merge_tickets where id=$1", [T])).rows).toHaveLength(0);
-    expect((await db.query("select * from security_codes where user_id=$1", [S])).rows).toHaveLength(0);
-    expect((await db.query("select * from links where profile_id in ($1,$2)", [P, S])).rows).toHaveLength(0);
+    await db.exec("rollback to savepoint before_merge");
+    expect((await db.query("select id from users where id in ($1,$2)", [P, S])).rows).toHaveLength(2);
+    expect((await db.query<{ used_at: unknown }>("select used_at from account_merge_tickets where id=$1", [T])).rows[0]?.used_at).toBeNull();
+    expect((await db.query<{ consumed_at: unknown }>("select consumed_at from security_codes where user_id=$1", [S])).rows[0]?.consumed_at).toBeNull();
+    expect((await db.query<{ profile_id: string }>("select profile_id from links where profile_id in ($1,$2)", [P, S])).rows[0]?.profile_id).toBe(S);
   } finally { await db.exec("rollback"); }
 }, 30_000);
 
@@ -110,4 +110,37 @@ it("runtime cannot assume the executor role or call the function without a user 
   } finally { await db.exec("rollback"); }
   expect((await db.query<{ allowed: boolean }>("select pg_has_role('rout_app','rout_merge_executor','MEMBER') as allowed")).rows[0]?.allowed).toBe(false);
   expect((await db.query<{ allowed: boolean }>("select has_function_privilege('public','public.execute_account_merge(text,text,text,text)','EXECUTE') as allowed")).rows[0]?.allowed).toBe(false);
+}, 30_000);
+
+it("adopts the secondary canonical auth mapping without a uniqueness or cascade loss", async () => {
+  const native = "55555555-5555-4555-8555-555555555555";
+  try {
+    await seed();
+    await db.query('insert into neon_auth."user"(id,name,email,"emailVerified") values($1,\'Native\',\'native@example.test\',true)', [native]);
+    await db.query("update users set auth_user_id=$1 where id=$2", [native, S]);
+    await caller(S); expect((await merge()).rows[0]?.result.ok).toBe(true);
+    await db.exec("reset role");
+    expect((await db.query<{ auth_user_id: string }>("select auth_user_id from users where id=$1", [P])).rows[0]?.auth_user_id).toBe(native);
+    expect((await db.query('select id from neon_auth."user" where id=$1', [native])).rows).toHaveLength(1);
+  } finally { await db.exec("rollback"); }
+}, 30_000);
+
+it("archives same-provider collisions and moves native passkeys before deleting secondary auth", async () => {
+  const a = "55555555-5555-4555-8555-555555555555";
+  const b = "66666666-6666-4666-8666-666666666666";
+  try {
+    await seed();
+    await db.query('insert into neon_auth."user"(id,name,email,"emailVerified") values($1,\'A\',\'a@example.test\',true),($2,\'B\',\'b@example.test\',true)', [a, b]);
+    await db.query("update users set auth_user_id=case when id=$1 then $3::uuid else $4::uuid end where id in ($1,$2)", [P, S, a, b]);
+    await db.query('insert into neon_auth.account("accountId","providerId","userId","updatedAt") values(\'one\',\'google\',$1,now()),(\'two\',\'google\',$2,now())', [a, b]);
+    await db.query('insert into neon_auth.passkey(id,"publicKey","userId","credentialID",counter,"deviceType","backedUp") values(\'passkey\',\'public\',$1,\'credential\',0,\'singleDevice\',false)', [b]);
+    await db.query('insert into neon_auth."twoFactor"(id,secret,"backupCodes","userId") values(\'factor\',\'fixture\',\'fixture\',$1)', [b]);
+    await caller(S); expect((await merge()).rows[0]?.result.ok).toBe(true);
+    await db.exec("reset role");
+    expect((await db.query<{ userId: string }>('select "userId" from neon_auth.passkey where id=\'passkey\'')).rows[0]?.userId).toBe(a);
+    expect((await db.query('select id from neon_auth."twoFactor" where "userId"=$1', [b])).rows).toHaveLength(0);
+    expect((await db.query('select id from neon_auth."user" where id=$1', [b])).rows).toHaveLength(0);
+    expect((await db.query("select provider_account_id from merged_auth_account_archive where primary_user_id=$1", [P])).rows).toEqual([{ provider_account_id: "two" }]);
+    expect((await db.query("select id from users where id=$1", [P])).rows).toHaveLength(1);
+  } finally { await db.exec("rollback"); }
 }, 30_000);

@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/console/apps/new")({
-  head: () => ({ meta: [{ title: "Nieuwe app — ROUT Developer Console" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Nieuwe app — ROUT Developer Console" }, { name: "description", content: "Registreer een app voor ROUT OIDC met veilige redirectadressen en PKCE." }, { property: "og:title", content: "Nieuwe app — ROUT Developer Console" }, { property: "og:description", content: "Registreer een app voor ROUT OIDC met veilige redirectadressen en PKCE." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" }] }),
   component: NewAppWizard,
 });
 
