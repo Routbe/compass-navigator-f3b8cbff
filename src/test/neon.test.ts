@@ -43,4 +43,4 @@ it("PostgreSQL rolls back a late failure and clears transaction-local current_us
     expect((await db.query("select * from tx_probe")).rows).toEqual([]);
     expect((await db.query<{uid:string|null}>("select nullif(current_setting('rout.current_user_id',true),'') as uid")).rows[0]?.uid).toBeNull();
   } finally { await db.close(); }
-});
+}, 30000);

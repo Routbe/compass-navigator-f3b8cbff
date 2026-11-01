@@ -24,6 +24,8 @@ const PROVIDER_ENV_KEYS = [
   // Cleared too so the "not blocked" cases fail deterministically on config
   // instead of trying to reach a real database.
   "DATABASE_URL",
+  "NEON_API_KEY",
+  "LOVABLE_API_KEY",
   "BETTER_AUTH_SECRET",
   "SESSION_SECRET",
 ];
