@@ -15,10 +15,10 @@ function setEnv(values: Record<string, string>) {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("database transport for sign-in", () => {
-  it("DATABASE_URL alone (Vercel) counts as a configured database", () => {
+  it("DATABASE_URL alone cannot bypass the required connector", () => {
     setEnv({ DATABASE_URL: "postgresql://u:p@ep-x.eu-central-1.aws.neon.tech/db" });
-    expect(hasDatabase()).toBe(true);
-    expect(() => createRoutAuth(new Request("https://rout.be/api/auth/get-session"))).not.toThrow();
+    expect(hasDatabase()).toBe(false);
+    expect(() => createRoutAuth(new Request("https://rout.be/api/auth/get-session"))).toThrow();
   });
 
   it("the Neon connector alone (Lovable preview) counts as a configured database", () => {
