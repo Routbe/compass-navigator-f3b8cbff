@@ -16,15 +16,20 @@ export function DocsLayout({ doc, children }: { doc: DocEntry; children: ReactNo
   const results = query.trim() ? docs.filter(d => `${d.title} ${d.description}`.toLowerCase().includes(query.toLowerCase())).slice(0, 8) : [];
   useEffect(() => {
     setOpen(false); setQuery(""); setActive("");
-    const observer = new IntersectionObserver(entries => {
-      for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id);
-    }, { rootMargin: "-80px 0px -65% 0px" });
+    const updateActive = () => {
+      const nodes = doc.headings.map(h => document.getElementById(h.id)).filter((node): node is HTMLElement => node !== null);
+      const passed = nodes.filter(node => node.getBoundingClientRect().top <= 145);
+      const current = passed[passed.length - 1] ?? nodes[0];
+      if (current) setActive(current.id);
+    };
+    const observer = new IntersectionObserver(updateActive, { rootMargin: "-80px 0px -65% 0px" });
     const observe = () => { for (const heading of doc.headings) { const el = document.getElementById(heading.id); if (el) observer.observe(el); } };
     observe();
     const mutations = new MutationObserver(observe);
     const article = document.getElementById("docs-content");
     if (article) mutations.observe(article, { childList: true, subtree: true });
-    return () => { observer.disconnect(); mutations.disconnect(); };
+    window.addEventListener("scroll", updateActive, { passive: true });
+    return () => { observer.disconnect(); mutations.disconnect(); window.removeEventListener("scroll", updateActive); };
   }, [doc]);
   return <div className="docs-theme min-h-screen bg-background text-foreground">
     <a href="#docs-content" className="docs-skip">Naar de inhoud</a>
