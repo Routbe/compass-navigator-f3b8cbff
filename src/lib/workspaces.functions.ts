@@ -1,7 +1,17 @@
-import { createServerFn } from "@tanstack/react-start";
+import { createMiddleware, createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireAuth } from "@/lib/auth/middleware";
 import { WORKSPACE_ROLES, checkMemberChange, canManageTeam, canAssignRole, type WorkspaceRole } from "./workspace-rules";
+import { unavailableWorkspaceContext } from "./workspace-availability";
+
+// Read-only availability wrapper also catches session-resolution failures in requireAuth.
+const workspaceAvailability = createMiddleware({ type: "function" }).server(async ({ next }) => {
+  try { return await next(); }
+  catch {
+    console.error("[workspace-context] temporarily_unavailable");
+    return { result: unavailableWorkspaceContext() };
+  }
+});
 
 const roleSchema = z.enum(WORKSPACE_ROLES);
 const uuid = z.string().uuid();
@@ -10,7 +20,7 @@ export type WorkspaceSummary = { id: string; name: string; slug: string; avatarU
 
 /** Personal context + every workspace the caller belongs to, and which one is active. */
 export const getWorkspaceContext = createServerFn({ method: "GET" })
-  .middleware([requireAuth])
+  .middleware([workspaceAvailability, requireAuth])
   .handler(async ({ context }) => {
     const { sql } = await import("@/lib/neon");
     const { resolveActiveWorkspace } = await import("./workspaces.server");
@@ -32,6 +42,7 @@ export const getWorkspaceContext = createServerFn({ method: "GET" })
     `) as { id: string; name: string; slug: string; avatar_url: string | null; plan: string; role: WorkspaceRole }[];
     const active = await resolveActiveWorkspace(context.userId);
     return {
+      available: true,
       workspaces: rows.map((r): WorkspaceSummary => ({ id: r.id, name: r.name, slug: r.slug, avatarUrl: r.avatar_url, plan: r.plan, role: r.role })),
       activeWorkspaceId: active.workspaceId,
       activeRole: active.role,

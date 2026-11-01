@@ -23,10 +23,15 @@ export const Route = createFileRoute("/api_/public/proxy-image")({
           const { validateOutboundUrl } = await import("@/lib/security/ssrf-guard.server");
           await validateOutboundUrl(target.toString(), AbortSignal.timeout(3000));
           const { cachedRemoteImage } = await import("@/lib/integrations/mastodon.server");
-          return await cachedRemoteImage(target.toString());
+          const response = await cachedRemoteImage(target.toString());
+          if (response.ok) return response;
+          const { unavailableImageResponse } = await import("@/lib/image-placeholder");
+          return unavailableImageResponse();
         } catch (error) {
           const status = (error as { status?: number }).status;
-          return new Response("Image request refused", { status: status === 400 || status === 413 || status === 415 ? status : 502 });
+          if (status === 400 || status === 413 || status === 415) return new Response("Image request refused", { status });
+          const { unavailableImageResponse } = await import("@/lib/image-placeholder");
+          return unavailableImageResponse();
         }
       },
     },

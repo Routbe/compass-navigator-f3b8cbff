@@ -55,13 +55,14 @@ function WorkspaceSettingsPage() {
   const wsId = ctx.data?.workspaces.find((w) => w.slug === workspaceSlug)?.id ?? null;
   const settings = useQuery({
     queryKey: ["workspace-settings", wsId],
-    queryFn: () => settingsFn({ data: { workspaceId: wsId! } }),
+    queryFn: () => { if (!wsId) throw new Error("Workspace unavailable"); return settingsFn({ data: { workspaceId: wsId } }); },
     enabled: Boolean(wsId),
   });
   const storage = useQuery({ queryKey: ["scope-storage", workspaceSlug], queryFn: () => storageFn(), enabled: state === "ready" });
   const refresh = () => void qc.invalidateQueries();
 
   if (state === "denied") return <p className="p-8 text-center text-sm text-muted-foreground">Geen toegang tot deze workspace.</p>;
+  if (ctx.isError || ctx.data?.available === false) return <p role="status" className="p-8 text-center text-sm text-muted-foreground">Workspaces tijdelijk niet beschikbaar.</p>;
   if (state === "loading" || ctx.isLoading || settings.isLoading) return <p className="p-8 text-center text-sm text-muted-foreground">Workspace laden…</p>;
   const ws = settings.data;
   if (!ws) return <p className="p-8 text-center text-sm text-muted-foreground">Workspace niet gevonden.</p>;

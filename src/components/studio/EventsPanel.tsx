@@ -25,7 +25,7 @@ export function EventsPanel({ handle, space = "alias" }: { handle?: string; spac
   const change = useServerFn(changeProfileEvent);
   const scope = useQuery({ queryKey: ["workspace-context"], queryFn: () => loadScope(), enabled: Boolean(user), retry: false });
   const active = scope.data?.workspaces.find((w) => w.id === scope.data.activeWorkspaceId);
-  const query = useQuery({ queryKey: ["my-events", scope.data?.activeWorkspaceId ?? null], queryFn: () => load(), enabled: Boolean(user) && scope.isSuccess, retry: false });
+  const query = useQuery({ queryKey: ["my-events", scope.data?.activeWorkspaceId ?? null], queryFn: () => load(), enabled: Boolean(user) && scope.data?.available === true, retry: false });
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({ title: "", start: "", end: "", venue: "", description: "", ticketUrl: "" });
@@ -36,6 +36,7 @@ export function EventsPanel({ handle, space = "alias" }: { handle?: string; spac
     catch { toast.error(t("events.failed")); } finally { setBusy(false); }
   }
   if (!user) return <Button asChild variant="outline"><a href="/auth/sign-in">{t("events.signin")}</a></Button>;
+  if (scope.isError || scope.data?.available === false) return <p role="status" className="text-sm text-muted-foreground">Workspaces tijdelijk niet beschikbaar.</p>;
   const events = query.data ?? [];
   return <section className="space-y-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
     <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-semibold">{t("events.title")}</h2><Button size="sm" onClick={() => setOpen(true)}><Plus className="size-4" />{t("events.new")}</Button></div>

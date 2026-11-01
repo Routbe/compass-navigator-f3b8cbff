@@ -24,7 +24,7 @@ export function FeedbackPanel({ handle, space = "alias", onPick, picker = false 
   const change = useServerFn(changeFeedback);
   const scope = useQuery({ queryKey: ["workspace-context"], queryFn: () => loadScope(), enabled: Boolean(user), retry: false });
   const active = scope.data?.workspaces.find(w => w.id === scope.data.activeWorkspaceId);
-  const query = useQuery({ queryKey: ["my-feedback", scope.data?.activeWorkspaceId ?? null], queryFn: () => load(), enabled: Boolean(user) && scope.isSuccess, retry: false });
+  const query = useQuery({ queryKey: ["my-feedback", scope.data?.activeWorkspaceId ?? null], queryFn: () => load(), enabled: Boolean(user) && scope.data?.available === true, retry: false });
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [type, setType] = useState<FeedbackType>("stars_5");
@@ -43,6 +43,7 @@ export function FeedbackPanel({ handle, space = "alias", onPick, picker = false 
     catch { toast.error(t("feedback.failed")); } finally { setBusy(false); }
   }
   if (!user) return <Button asChild variant="outline"><a href="/auth/sign-in">{t("feedback.signin")}</a></Button>;
+  if (scope.isError || scope.data?.available === false) return <p role="status" className="text-sm text-muted-foreground">Workspaces tijdelijk niet beschikbaar.</p>;
   return <section className="space-y-4">
     <div className="flex flex-wrap items-center justify-between gap-2"><h2 className="text-lg font-semibold">{t("feedback.title")}</h2><Button size="sm" onClick={() => { setTarget(handle ?? ""); setOpen(true); }}><Plus className="size-4" />{t("feedback.new")}</Button></div>
     {!picker && <div className="flex gap-2" role="tablist" aria-label={t("feedback.title")}>{["forms", "responses"].map(v => <Button key={v} role="tab" aria-selected={view === v} variant={view === v ? "default" : "ghost"} onClick={() => setView(v)}>{t(`feedback.${v}`)}</Button>)}</div>}

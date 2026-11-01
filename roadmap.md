@@ -25,3 +25,8 @@
 - [ ] Live Scaleway cache check: credentials/bucket remain unavailable.
 - [x] Full suite: 217 files / 1,240 tests passed; manual TypeScript check exit 0 after host timeout. PGlite proves late-error rollback and context cleanup, not live gateway/auth success.
 - [ ] Authenticated end-to-end verification: blocked by owner connection and unsupported Better Auth adapter; JWKS is temporarily unavailable rather than using unsafe owner access.
+
+## Preview recovery
+- [ ] Handle workspace session/database unavailability without a blank screen or pretending personal scope is authorized.
+- [ ] Serve a first-party avatar placeholder when private image cache storage is unavailable; never bypass the privacy proxy.
+- [ ] Test unavailable workspace/image responses and verify both previously failing preview requests.
