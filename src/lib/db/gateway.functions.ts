@@ -1,5 +1,4 @@
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestHeader } from "@tanstack/react-start/server";
 import type { QueryDescriptor, QueryResult, RpcDescriptor } from "./types";
 
 /**
@@ -22,7 +21,9 @@ export const runDbQuery = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<QueryResult> => {
     const { authorizeQuery } = await import("./policy.server");
     const { executeDescriptor } = await import("./execute.server");
+    const { withDbContext } = await import("@/lib/neon");
     const userId = await currentUserId();
+    return withDbContext({ userId, workspaceId: null }, async () => {
     const decision = await authorizeQuery(data, userId);
     if (!decision.ok) {
       return {
@@ -33,6 +34,7 @@ export const runDbQuery = createServerFn({ method: "POST" })
       };
     }
     return await executeDescriptor(decision.descriptor);
+    });
   });
 
 export const runDbRpc = createServerFn({ method: "POST" })
@@ -40,10 +42,13 @@ export const runDbRpc = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<QueryResult> => {
     const { authorizeRpc } = await import("./policy.server");
     const { executeRpc } = await import("./execute.server");
+    const { withDbContext } = await import("@/lib/neon");
     const userId = await currentUserId();
+    return withDbContext({ userId, workspaceId: null }, async () => {
     const decision = authorizeRpc(data.fn, userId);
     if (!decision.ok) {
       return { data: null, error: { message: decision.message }, count: null, status: 403 };
     }
     return await executeRpc(data, userId);
+    });
   });

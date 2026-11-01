@@ -14,7 +14,7 @@ export function cleanContextId(value: unknown): string | null {
 export function contextStatements(ctx: DbContext): Statement[] {
   return [
     {
-      query: "select set_config('rout.user_id', $1, true), set_config('rout.workspace_id', $2, true)",
+      query: "select set_config('rout.current_user_id', $1, true), set_config('rout.user_id', $1, true), set_config('rout.workspace_id', $2, true)",
       params: [cleanContextId(ctx.userId) ?? "", cleanContextId(ctx.workspaceId) ?? ""],
     },
   ];
